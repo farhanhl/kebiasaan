@@ -1,0 +1,33 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
+import { copy } from "@/lib/copy";
+
+function subscribe(callback: () => void) {
+  window.addEventListener("online", callback);
+  window.addEventListener("offline", callback);
+  return () => {
+    window.removeEventListener("online", callback);
+    window.removeEventListener("offline", callback);
+  };
+}
+
+export function OfflineBanner() {
+  const isOnline = useSyncExternalStore(
+    subscribe,
+    () => navigator.onLine,
+    () => true
+  );
+
+  if (isOnline) return null;
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed top-3 inset-x-4 z-50 mx-auto max-w-md rounded-2xl border border-accent/40 bg-surface/95 p-3 text-center text-xs font-semibold text-accent shadow-glow backdrop-blur-md"
+    >
+      {copy.offline}
+    </div>
+  );
+}
