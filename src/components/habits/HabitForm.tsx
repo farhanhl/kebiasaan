@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { habitSchema, type HabitFormInput } from "@/lib/schemas";
@@ -57,9 +57,11 @@ export function HabitForm({
 
   const selectedCategory = watch("category");
   const selectedEmoji = watch("emoji");
+  const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
     if (show) {
+      setFormError(null);
       if (habit) {
         reset({
           name: habit.name,
@@ -89,8 +91,30 @@ export function HabitForm({
   };
 
   const handleFormSubmit = async (data: HabitFormInput) => {
-    await onSubmit(data);
-    onClose();
+    try {
+      setFormError(null);
+      await onSubmit(data);
+      onClose();
+    } catch (err: unknown) {
+      console.error("Gagal menyimpan kebiasaan:", err);
+      const msg = (err as Error)?.message || "";
+      if (
+        msg.includes("offline") ||
+        msg.includes("unavailable") ||
+        msg.includes("404") ||
+        msg.includes("not-found")
+      ) {
+        setFormError(
+          "Tidak dapat terhubung ke database. Pastikan database Cloud Firestore sudah dibuat di Firebase Console."
+        );
+      } else if (msg.includes("permission") || msg.includes("denied")) {
+        setFormError(
+          "Akses ditolak. Pastikan kamu sudah login dan aturan (Rules) Firestore mengizinkan penulisan."
+        );
+      } else {
+        setFormError("Gagal menyimpan kebiasaan. Silakan periksa koneksi dan coba lagi.");
+      }
+    }
   };
 
   return (
@@ -100,6 +124,11 @@ export function HabitForm({
       </ModalHeader>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <ModalBody className="space-y-4">
+          {formError && (
+            <div className="rounded-2xl border border-bad/30 bg-bad/10 p-3 text-xs text-bad">
+              {formError}
+            </div>
+          )}
           {/* Category selection */}
           <div>
             <label className="mb-2 block text-xs font-medium text-muted">
@@ -121,11 +150,10 @@ export function HabitForm({
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("good")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
-                    selectedCategory === "good"
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${selectedCategory === "good"
                       ? "border-emerald-600/50 bg-emerald-950/30 text-emerald-300 font-semibold shadow-sm ring-1 ring-emerald-500/20"
                       : "border-border/70 bg-surface/50 text-muted hover:border-border hover:text-fg hover:bg-surface/80"
-                  }`}
+                    }`}
                 >
                   <HiSparkles className={`h-5 w-5 ${selectedCategory === "good" ? "text-emerald-400" : "text-muted"}`} />
                   <span className="text-sm">Kebiasaan Baik</span>
@@ -137,11 +165,10 @@ export function HabitForm({
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("bad")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
-                    selectedCategory === "bad"
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${selectedCategory === "bad"
                       ? "border-rose-700/50 bg-rose-950/30 text-rose-300 font-semibold shadow-sm ring-1 ring-rose-500/20"
                       : "border-border/70 bg-surface/50 text-muted hover:border-border hover:text-fg hover:bg-surface/80"
-                  }`}
+                    }`}
                 >
                   <HiHandRaised className={`h-5 w-5 ${selectedCategory === "bad" ? "text-rose-400" : "text-muted"}`} />
                   <span className="text-sm">Kebiasaan Buruk</span>
@@ -225,7 +252,7 @@ export function HabitForm({
           </div>
         </ModalBody>
 
-        <ModalFooter className="flex justify-end gap-2 border-t-0 p-5 pt-1">
+        <ModalFooter className="flex justify-end gap-2 border-t border-border/60 p-4">
           <button
             type="button"
             onClick={onClose}
