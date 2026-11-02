@@ -1,63 +1,99 @@
-# Kebiasaan 🌅
+# Kebiasaan
 
-Aplikasi pencatat kebiasaan (baik & buruk) bergaya Gen Z dengan tema **Sunset Lo-fi** (hangat, chill, soft & bubbly). Membantu anak muda memahami rutinitas sehari-hari tanpa rasa menghakimi, dilengkapi gamifikasi streak, level, XP, badge lencana, dan rekap statistik berkala.
+Aplikasi pelacak kebiasaan (*habit tracker*) berbasis web yang dirancang dengan pendekatan suportif dan non-judgmental. Membantu pengguna membangun kebiasaan baik dan mengurangi kebiasaan buruk melalui pencatatan harian yang ringan, sistem gamifikasi terukur, serta visualisasi data komprehensif.
 
 ---
 
 ## Fitur Utama
 
-- 🔐 **Autentikasi Firebase:** Daftar, Masuk, Keluar, dan Reset Password dengan validasi ramah berbahasa Indonesia.
-- 🌱 **Kelola Kebiasaan (Baik & Buruk):** Tambah kebiasaan baru dengan emoji kustom, catatan, tanggal mulai, filter kategori, serta arsip dan hapus.
-- ⚡ **Pencatatan Cepat Hari Ini:** Tombol `+1` dan `-1` instan dengan animasi mikro pop, pemilihan mood (5 pilihan emoji), dan penghitungan otomatis streak & hari bebas.
-- 🏆 **Gamifikasi Suportif:** 
-  - XP dan Level bertahap (Pemula Santuy hingga Legenda Senja)
-  - 9 lencana (Badges) unik dengan bonus XP
-  - Animasi confetti untuk level-up, hari sempurna, dan badge baru (mendukung `prefers-reduced-motion`).
-- 📊 **Dashboard Rekap:**
-  - Pilihan periode: **Harian** (7 hari), **Mingguan** (8 minggu), **Bulanan** (6 bulan)
-  - 4 kartu ringkasan dengan indikator tren perbandingan
-  - Grafik batang berkelompok tren Baik vs Buruk (ApexCharts)
-  - Grafik donat porsi keseimbangan
-  - Heatmap kalender 20 minggu dengan intensitas warna
-  - Top 5 kebiasaan dan distribusi mood
-- 📱 **Progressive Web App (PWA):**
-  - Installable di Android, iOS, dan Desktop
-  - Standalone display dengan splash gelap hangat `#1C1917`
-  - Cache offline & sinkronisasi otomatis Firestore
-  - Halaman fallback `/offline`
+- **Autentikasi & Keamanan**: Masuk, daftar, keluar, dan pemulihan kata sandi menggunakan Firebase Authentication dengan validasi formulir dan aturan keamanan Firestore berbasis pengguna (*per-user security rules*).
+- **Manajemen Kebiasaan**: Tambah, ubah, arsipkan, dan kategorikan kebiasaan (Baik atau Buruk) dilengkapi pemilihan ikon emoji, catatan motivasi, serta tanggal mulai.
+- **Pencatatan Harian Cepat**: Tombol hitungan instan (+1 / -1), pencatatan suasana hati (*mood tracking*), serta kalkulasi otomatis streak dan hari bebas kebiasaan buruk.
+- **Sistem Gamifikasi Suportif**: Progresi non-punitif dengan perolehan XP, 5 tingkatan level, 9 lencana (*badges*), dan animasi perayaan yang mendukung preferensi *reduced motion*.
+- **Dashboard Analisis**: Rekap performa lintas periode (harian, mingguan, bulanan), rasio keseimbangan, pemeringkatan kebiasaan teratas, dan *heatmap* konsistensi 20 minggu (ApexCharts).
+- **Progressive Web App (PWA)**: Dukungan instalasi lintas perangkat (Android, iOS, Desktop), cache *offline-first* via Service Worker, dan sinkronisasi otomatis dengan Cloud Firestore.
 
 ---
 
 ## Tech Stack
 
-| Kebutuhan | Teknologi |
+| Kategori | Teknologi |
 |---|---|
-| **Framework** | Next.js 16 (App Router) + React 19 + TypeScript strict |
-| **Styling** | Tailwind CSS v4 + Flowbite React (kustom tema Sunset Lo-fi) |
-| **Database & Auth** | Firebase Authentication + Firestore (persistent multi-tab local cache) |
-| **Grafik** | ApexCharts + react-apexcharts |
-| **Animasi** | Motion (`motion/react`) + canvas-confetti |
-| **Validasi Form** | react-hook-form + zod |
-| **Tanggal** | date-fns (lokal Indonesia `id`, zona `Asia/Jakarta`, minggu mulai Senin) |
-| **Ikon** | react-icons (Heroicons v2) |
-| **PWA** | Web App Manifest + Service Worker (`public/sw.js`) |
-| **Testing** | Vitest (pengujian unit logika murni) |
+| **Framework** | Next.js 16 (App Router), React 19, TypeScript (Strict Mode) |
+| **Styling & UI** | Tailwind CSS v4, Flowbite React, Custom Theme (Sunset Lo-fi) |
+| **Database & Auth** | Firebase Authentication, Cloud Firestore (Multi-Tab Persistent Cache) |
+| **Visualisasi Data** | ApexCharts, React-ApexCharts |
+| **Animasi** | Motion (`motion/react`), Canvas-Confetti |
+| **Validasi Formulir** | React Hook Form, Zod |
+| **Waktu & Tanggal** | date-fns (Zona: `Asia/Jakarta`, Minggu dimulai dari Senin) |
+| **Ikon** | React Icons (Heroicons v2) |
+| **Testing** | Vitest |
 
 ---
 
-## Menjalankan di Lokal
+## Struktur Proyek
 
-### 1. Instalasi Dependensi
+```text
+kebiasaan/
+├── docs/                      # Dokumentasi teknis, PRD, dan arsitektur
+├── public/                    # Aset statis, ikon PWA, dan Service Worker
+│   ├── icons/                 # Aset ikon PWA (192px, 512px, maskable)
+│   └── sw.js                  # Service Worker untuk caching offline
+├── src/
+│   ├── app/                   # Halaman dan tata letak Next.js App Router
+│   │   ├── (app)/             # Rute terotentikasi (Hari Ini, Kebiasaan, Dashboard, Profil)
+│   │   ├── (auth)/            # Rute autentikasi (Masuk, Daftar, Lupa Password)
+│   │   └── globals.css        # Konfigurasi token tema Tailwind CSS
+│   ├── components/            # Komponen antarmuka React
+│   │   ├── auth/              # Formulir autentikasi dan route guard
+│   │   ├── dashboard/         # Grafik analitik dan kartu ringkasan
+│   │   ├── gamification/      # Komponen level, XP bar, dan lencana
+│   │   ├── habits/            # Kartu kebiasaan, tombol hitungan, dan formulir
+│   │   ├── layout/            # Shell navigasi, header, dan bottom bar
+│   │   ├── pwa/               # Banner offline dan dialog instalasi
+│   │   └── ui/                # Komponen dasar bersama
+│   ├── hooks/                 # Custom React hooks
+│   ├── lib/                   # Logika bisnis murni, utilitas, dan integrasi Firebase
+│   │   ├── __tests__/         # Unit test logika murni (Vitest)
+│   │   ├── firebase/          # Konfigurasi client dan fungsi Firestore
+│   │   ├── date.ts            # Utilitas kalkulasi tanggal dan zona waktu
+│   │   ├── gamification.ts    # Algoritma streak, XP, level, dan badge
+│   │   └── stats.ts           # Logika agregasi statistik dashboard
+│   ├── providers/             # React Context Providers
+│   └── types/                 # Definisi tipe data TypeScript
+├── firestore.rules            # Aturan keamanan Cloud Firestore
+├── firestore.indexes.json     # Indeks komposit Cloud Firestore
+└── vitest.config.mts          # Konfigurasi pengujian unit Vitest
+```
+
+---
+
+## Memulai Proyek
+
+### Prasyarat
+
+- Node.js versi 20.x atau lebih baru
+- npm versi 10.x atau lebih baru
+- Proyek Firebase dengan Authentication (Email/Password) dan Cloud Firestore yang telah aktif
+
+### 1. Kloning dan Instalasi
+
 ```bash
+git clone https://github.com/farhanhl/kebiasaan.git
+cd kebiasaan
 npm install
 ```
 
-### 2. Konfigurasi Environment Variable
-Salin `.env.example` ke `.env.local`:
+### 2. Konfigurasi Environment Variables
+
+Salin file contoh konfigurasi:
+
 ```bash
 cp .env.example .env.local
 ```
-Isi konfigurasi Firebase milikmu:
+
+Lengkapi kredensial Firebase proyek Anda pada file `.env.local`:
+
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
@@ -67,47 +103,51 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-### 3. Jalankan Server Pengembangan
+### 3. Menjalankan Server Pengembangan
+
 ```bash
 npm run dev
 ```
-Buka [http://localhost:3000](http://localhost:3000) di browser.
+
+Akses aplikasi melalui browser di [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Perintah Tersedia
+## Skrip yang Tersedia
 
 | Perintah | Deskripsi |
 |---|---|
-| `npm run dev` | Menjalankan Next.js development server |
-| `npm run lint` | Menjalankan ESLint |
-| `npm run typecheck` | Menjalankan TypeScript typecheck (`tsc --noEmit`) |
-| `npm run test` | Menjalankan unit test logika murni dengan Vitest |
-| `npm run build` | Membuat build produksi teroptimasi |
-| `npm run start` | Menjalankan server hasil build produksi |
+| `npm run dev` | Menjalankan server pengembangan Next.js (Turbopack) |
+| `npm run build` | Mengompilasi build produksi dengan prerendering statis |
+| `npm run start` | Menjalankan server dari hasil kompilasi produksi |
+| `npm run lint` | Menjalankan analisis kode statis dengan ESLint |
+| `npm run typecheck` | Menjalankan pemeriksaan tipe statis TypeScript (`tsc --noEmit`) |
+| `npm run test` | Menjalankan seluruh rangkaian pengujian unit dengan Vitest |
 
 ---
 
-## Setup Firestore Rules & Index
+## Konfigurasi Firestore Rules & Indexes
 
-File keamanan dan index sudah tersedia di root proyek:
-- `firestore.rules` (isolasi data antar user & validasi field)
-- `firestore.indexes.json` (index komposit riwayat log)
+Terapkan aturan keamanan dan indeks komposit ke Firebase menggunakan Firebase CLI:
 
-Deploy ke project Firebase menggunakan Firebase CLI:
 ```bash
-npm i -g firebase-tools
+npm install -g firebase-tools
 firebase login
-firebase init firestore
 firebase deploy --only firestore:rules,firestore:indexes
 ```
 
 ---
 
-## Deploy ke Vercel
+## Panduan Deployment ke Vercel
 
-1. Push repository ke GitHub / GitLab.
-2. Import project di [Vercel](https://vercel.com).
-3. Tambahkan environment variables `NEXT_PUBLIC_FIREBASE_*` di Project Settings → Environment Variables.
-4. Klik **Deploy**.
-5. Setelah selesai, tambahkan domain Vercel ke **Firebase Console → Authentication → Settings → Authorized domains**.
+1. Unggah repositori ke GitHub atau penyedia Git lainnya.
+2. Buka [Vercel](https://vercel.com) dan impor repositori proyek ini.
+3. Pada menu **Project Settings → Environment Variables**, tambahkan seluruh variabel `NEXT_PUBLIC_FIREBASE_*` sesuai dengan isi `.env.local`.
+4. Jalankan proses **Deploy**.
+5. Setelah URL produksi aktif, daftarkan domain tersebut ke **Firebase Console → Authentication → Settings → Authorized domains**.
+
+---
+
+## Lisensi
+
+Proyek ini dirilis di bawah lisensi MIT.
