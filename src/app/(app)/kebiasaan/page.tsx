@@ -137,11 +137,10 @@ export default function KebiasaanPage() {
               setFilter("all");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
-              !showArchived && filter === "all"
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${!showArchived && filter === "all"
                 ? "bg-primary text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
-            }`}
+              }`}
           >
             Semua ({habits.filter((h) => !h.isArchived).length})
           </button>
@@ -151,11 +150,10 @@ export default function KebiasaanPage() {
               setFilter("good");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
-              !showArchived && filter === "good"
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${!showArchived && filter === "good"
                 ? "bg-good text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
-            }`}
+              }`}
           >
             Baik ({habits.filter((h) => !h.isArchived && h.category === "good").length})
           </button>
@@ -165,11 +163,10 @@ export default function KebiasaanPage() {
               setFilter("bad");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
-              !showArchived && filter === "bad"
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${!showArchived && filter === "bad"
                 ? "bg-bad text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
-            }`}
+              }`}
           >
             Buruk ({habits.filter((h) => !h.isArchived && h.category === "bad").length})
           </button>
@@ -177,11 +174,10 @@ export default function KebiasaanPage() {
             <button
               type="button"
               onClick={() => setShowArchived(true)}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
-                showArchived
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${showArchived
                   ? "bg-muted text-on-primary"
                   : "text-muted hover:text-fg"
-              }`}
+                }`}
             >
               Diarsipkan ({archivedCount})
             </button>
@@ -212,15 +208,15 @@ export default function KebiasaanPage() {
             showArchived
               ? "Tidak ada kebiasaan yang diarsipkan"
               : search
-              ? "Kebiasaan tidak ditemukan"
-              : "Belum ada kebiasaan"
+                ? "Kebiasaan tidak ditemukan"
+                : "Belum ada kebiasaan"
           }
           description={
             showArchived
               ? "Kebiasaan yang kamu arsipkan akan muncul di sini."
               : search
-              ? `Tidak ada kebiasaan dengan kata kunci "${search}".`
-              : "Yuk mulai catat satu kebiasaan kecil hari ini."
+                ? `Tidak ada kebiasaan dengan kata kunci "${search}".`
+                : "Yuk mulai catat satu kebiasaan kecil hari ini."
           }
           actionLabel={!showArchived && !search ? "Tambah Kebiasaan Baru" : undefined}
           onAction={() => {
@@ -239,18 +235,16 @@ export default function KebiasaanPage() {
             return (
               <div
                 key={habit.id}
-                className={`flex flex-col gap-3 rounded-3xl border bg-surface p-4 shadow-soft transition-all sm:flex-row sm:items-center sm:justify-between ${
-                  isGood ? "border-l-4 border-l-good border-border" : "border-l-4 border-l-bad border-border"
-                } ${habit.isArchived ? "opacity-60" : "hover:border-primary/40"}`}
+                className={`flex flex-col gap-3 rounded-3xl border bg-surface p-4 shadow-soft transition-all sm:flex-row sm:items-center sm:justify-between ${isGood ? "border-l-4 border-l-good border-border" : "border-l-4 border-l-bad border-border"
+                  } ${habit.isArchived ? "opacity-60" : "hover:border-primary/40"}`}
               >
                 <Link
                   href={`/kebiasaan/${habit.id}`}
                   className="flex flex-1 items-center gap-3.5 group"
                 >
                   <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl ${
-                      isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
-                    }`}
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl ${isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
+                      }`}
                   >
                     {habit.emoji}
                   </div>
@@ -271,8 +265,8 @@ export default function KebiasaanPage() {
                         {isGood
                           ? `${streak} hari streak`
                           : streak === 0
-                          ? "Mulai lagi hari ini"
-                          : `${streak} hari bebas`}
+                            ? "Mulai lagi hari ini"
+                            : `${streak} hari bebas`}
                       </span>
                     </div>
                   </div>

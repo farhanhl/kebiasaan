@@ -216,9 +216,8 @@ export default function HabitDetailPage() {
       <div className="flex flex-col gap-4 rounded-3xl border border-border bg-surface p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex items-center gap-4">
           <div
-            className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl text-3xl shadow-glow ${
-              isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
-            }`}
+            className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl text-3xl shadow-glow ${isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
+              }`}
           >
             {habit.emoji}
           </div>
@@ -355,12 +354,12 @@ export default function HabitDetailPage() {
                       {log.mood === "happy"
                         ? "😄"
                         : log.mood === "chill"
-                        ? "😌"
-                        : log.mood === "sad"
-                        ? "😔"
-                        : log.mood === "angry"
-                        ? "😤"
-                        : "😴"}
+                          ? "😌"
+                          : log.mood === "sad"
+                            ? "😔"
+                            : log.mood === "angry"
+                              ? "😤"
+                              : "😴"}
                     </span>
                   )}
                   <span className="rounded-full bg-surface-raised px-2.5 py-1 font-display font-bold text-fg tabular-nums">
