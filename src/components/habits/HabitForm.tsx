@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { habitSchema, type HabitFormInput } from "@/lib/schemas";
 import {
@@ -17,7 +17,6 @@ import {
 } from "flowbite-react";
 import { HiSparkles, HiHandRaised } from "react-icons/hi2";
 import type { Habit, HabitCategory } from "@/types/habit";
-import { EmojiPicker } from "./EmojiPicker";
 import { todayKey } from "@/lib/date";
 
 interface HabitFormProps {
@@ -39,7 +38,6 @@ export function HabitForm({
   const {
     register,
     handleSubmit,
-    control,
     setValue,
     watch,
     reset,
@@ -49,14 +47,13 @@ export function HabitForm({
     defaultValues: {
       name: "",
       category: "good",
-      emoji: "🌱",
+      emoji: "",
       note: "",
       startDate: today,
     },
   });
 
   const selectedCategory = watch("category");
-  const selectedEmoji = watch("emoji");
   const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -66,7 +63,7 @@ export function HabitForm({
         reset({
           name: habit.name,
           category: habit.category,
-          emoji: habit.emoji,
+          emoji: "",
           note: habit.note || "",
           startDate: habit.startDate || today,
         });
@@ -74,7 +71,7 @@ export function HabitForm({
         reset({
           name: "",
           category: "good",
-          emoji: "🌱",
+          emoji: "",
           note: "",
           startDate: today,
         });
@@ -85,9 +82,6 @@ export function HabitForm({
   const handleCategoryChange = (cat: HabitCategory) => {
     if (isEditing) return; // Category locked in edit mode
     setValue("category", cat);
-    if (!habit) {
-      setValue("emoji", cat === "good" ? "🌱" : "🍟");
-    }
   };
 
   const handleFormSubmit = async (data: HabitFormInput) => {
@@ -200,18 +194,6 @@ export function HabitForm({
               </HelperText>
             )}
           </div>
-
-          {/* Emoji Picker */}
-          <Controller
-            control={control}
-            name="emoji"
-            render={({ field }) => (
-              <EmojiPicker
-                selected={field.value || selectedEmoji}
-                onSelect={(emoji) => field.onChange(emoji)}
-              />
-            )}
-          />
 
           {/* Start Date */}
           {!isEditing && (

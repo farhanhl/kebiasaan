@@ -38,7 +38,6 @@ export function TopHabits({ topGood, topBad }: TopHabitsProps) {
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-surface-raised text-[11px] font-bold text-muted">
                     {idx + 1}
                   </span>
-                  <span className="text-lg">{item.emoji}</span>
                   <span className="truncate text-xs font-semibold text-fg">
                     {item.name}
                   </span>
@@ -80,7 +79,6 @@ export function TopHabits({ topGood, topBad }: TopHabitsProps) {
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-surface-raised text-[11px] font-bold text-muted">
                     {idx + 1}
                   </span>
-                  <span className="text-lg">{item.emoji}</span>
                   <span className="truncate text-xs font-semibold text-fg">
                     {item.name}
                   </span>

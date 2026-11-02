@@ -8,6 +8,7 @@ import { CounterButton } from "./CounterButton";
 import { MoodPicker } from "./MoodPicker";
 import { CategoryChip } from "./CategoryChip";
 import { getEffectiveStreak, calcFreeDays } from "@/lib/gamification";
+import { HiSparkles, HiHandRaised } from "react-icons/hi2";
 
 interface HabitCardProps {
   habit: Habit;
@@ -41,17 +42,21 @@ export function HabitCard({
       }`}
     >
       <div className="flex items-center justify-between gap-3">
-        {/* Habit info & emoji */}
+        {/* Habit info & category icon */}
         <Link
           href={`/kebiasaan/${habit.id}`}
           className="flex flex-1 items-center gap-3.5 min-w-0 group"
         >
           <div
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl transition-transform group-hover:scale-105 ${
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition-transform group-hover:scale-105 ${
               isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
             }`}
           >
-            {habit.emoji}
+            {isGood ? (
+              <HiSparkles className="h-5 w-5" />
+            ) : (
+              <HiHandRaised className="h-5 w-5" />
+            )}
           </div>
 
           <div className="min-w-0 flex-1">

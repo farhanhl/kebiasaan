@@ -23,12 +23,11 @@ export async function createHabit(
 ): Promise<string> {
   const habitsCol = collection(db, "users", uid, "habits");
   const today = todayKey();
-  const defaultEmoji = input.category === "good" ? "🌱" : "🍟";
 
   const docRef = await addDoc(habitsCol, {
     name: input.name.trim(),
     category: input.category,
-    emoji: input.emoji?.trim() || defaultEmoji,
+    emoji: input.emoji?.trim() || "",
     note: input.note?.trim() || "",
     startDate: input.startDate || today,
     isArchived: false,

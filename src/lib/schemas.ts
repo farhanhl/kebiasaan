@@ -38,7 +38,7 @@ export const habitSchema = z.object({
     .min(1, "Nama kebiasaan wajib diisi.")
     .max(60, "Nama kebiasaan maksimal 60 karakter."),
   category: z.enum(["good", "bad"] as const),
-  emoji: z.string().min(1, "Emoji wajib ada."),
+  emoji: z.string(),
   note: z.string().max(200, "Catatan maksimal 200 karakter."),
   startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal harus YYYY-MM-DD"),
 });

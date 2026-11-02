@@ -34,6 +34,8 @@ import {
   HiTrash,
   HiMagnifyingGlass,
   HiChevronRight,
+  HiSparkles,
+  HiHandRaised,
 } from "react-icons/hi2";
 import { todayKey } from "@/lib/date";
 import { getEffectiveStreak, calcFreeDays } from "@/lib/gamification";
@@ -81,7 +83,6 @@ export default function KebiasaanPage() {
     if (editingHabit) {
       await updateHabit(user.uid, editingHabit.id, {
         name: data.name,
-        emoji: data.emoji,
         note: data.note,
       });
       setEditingHabit(null);
@@ -243,10 +244,15 @@ export default function KebiasaanPage() {
                   className="flex flex-1 items-center gap-3.5 group"
                 >
                   <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl ${isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
-                      }`}
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${
+                      isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
+                    }`}
                   >
-                    {habit.emoji}
+                    {isGood ? (
+                      <HiSparkles className="h-5 w-5" />
+                    ) : (
+                      <HiHandRaised className="h-5 w-5" />
+                    )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

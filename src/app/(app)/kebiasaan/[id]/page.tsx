@@ -32,6 +32,8 @@ import {
   HiTrash,
   HiArrowLeft,
   HiMagnifyingGlass,
+  HiSparkles,
+  HiHandRaised,
 } from "react-icons/hi2";
 import { todayKey, formatDateId, getPastDays, formatDateShort } from "@/lib/date";
 import { getEffectiveStreak, calcFreeDays } from "@/lib/gamification";
@@ -137,7 +139,6 @@ export default function HabitDetailPage() {
     if (!user) return;
     await updateHabit(user.uid, habit.id, {
       name: data.name,
-      emoji: data.emoji,
       note: data.note,
     });
   };
@@ -216,10 +217,14 @@ export default function HabitDetailPage() {
       <div className="flex flex-col gap-4 rounded-3xl border border-border bg-surface p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex items-center gap-4">
           <div
-            className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl text-3xl shadow-glow ${isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
+            className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl shadow-glow ${isGood ? "bg-good/15 text-good" : "bg-bad/15 text-bad"
               }`}
           >
-            {habit.emoji}
+            {isGood ? (
+              <HiSparkles className="h-8 w-8" />
+            ) : (
+              <HiHandRaised className="h-8 w-8" />
+            )}
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2">
