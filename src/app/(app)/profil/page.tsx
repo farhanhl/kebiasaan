@@ -178,21 +178,23 @@ export default function ProfilPage() {
             />
           </div>
         </ModalBody>
-        <ModalFooter className="flex justify-end gap-2">
-          <Button
-            color="alternative"
+        <ModalFooter className="flex justify-end gap-2 border-t border-border/60 p-4">
+          <button
+            type="button"
             onClick={() => setEditNameOpen(false)}
             disabled={savingName}
+            className="rounded-full border border-border/80 bg-surface-raised/40 px-5 py-2 text-xs font-semibold text-muted hover:bg-surface-raised hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
           >
             Batal
-          </Button>
-          <Button
-            color="default"
+          </button>
+          <button
+            type="button"
             onClick={handleSaveName}
             disabled={savingName || !newName.trim()}
+            className="rounded-full bg-primary px-5 py-2 text-xs font-semibold text-on-primary hover:bg-primary-hover focus:ring-4 focus:ring-primary/20 shadow-sm transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
             {savingName ? <Spinner size="sm" /> : "Simpan"}
-          </Button>
+          </button>
         </ModalFooter>
       </Modal>
 
@@ -208,21 +210,23 @@ export default function ProfilPage() {
             Kamu yakin ingin keluar dari akun Kebiasaan?
           </p>
         </ModalBody>
-        <ModalFooter className="flex justify-end gap-2">
-          <Button
-            color="alternative"
+        <ModalFooter className="flex justify-end gap-2 border-t border-border/60 p-4">
+          <button
+            type="button"
             onClick={() => setLogoutConfirmOpen(false)}
             disabled={loggingOut}
+            className="rounded-full border border-border/80 bg-surface-raised/40 px-5 py-2 text-xs font-semibold text-muted hover:bg-surface-raised hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
           >
             Batal
-          </Button>
-          <Button
-            color="failure"
+          </button>
+          <button
+            type="button"
             onClick={handleLogout}
             disabled={loggingOut}
+            className="rounded-full bg-bad px-5 py-2 text-xs font-semibold text-on-primary hover:bg-bad/90 shadow-sm transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loggingOut ? <Spinner size="sm" /> : "Keluar"}
-          </Button>
+          </button>
         </ModalFooter>
       </Modal>
     </div>

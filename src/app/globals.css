@@ -15,16 +15,16 @@
   --color-fg: #FAFAF9;
   --color-muted: #A8A29E;
   --color-on-primary: #1C1917;
-  --color-good: #34D399;
-  --color-bad: #F87171;
+  --color-good: #10B981;
+  --color-bad: #F43F5E;
 
   --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
   --radius-bubble: 1.5rem;
   --radius-field: 1rem;
-  --shadow-soft: 0 8px 24px -12px rgb(0 0 0 / 0.6);
-  --shadow-glow: 0 10px 30px -12px rgb(251 146 60 / 0.45);
+  --shadow-soft: 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-glow: 0 4px 14px -3px rgb(0 0 0 / 0.3);
 }
 
 html {

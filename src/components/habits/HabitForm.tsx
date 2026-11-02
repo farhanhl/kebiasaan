@@ -121,29 +121,33 @@ export function HabitForm({
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("good")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all cursor-pointer ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
                     selectedCategory === "good"
-                      ? "border-good bg-good/15 text-good shadow-glow font-bold"
-                      : "border-border bg-surface-raised/40 text-muted hover:border-good/50"
+                      ? "border-emerald-600/50 bg-emerald-950/30 text-emerald-300 font-semibold shadow-sm ring-1 ring-emerald-500/20"
+                      : "border-border/70 bg-surface-raised/40 text-muted hover:border-border hover:text-fg hover:bg-surface-raised/60"
                   }`}
                 >
-                  <HiSparkles className="h-6 w-6 text-good" />
+                  <HiSparkles className={`h-5 w-5 ${selectedCategory === "good" ? "text-emerald-400" : "text-muted"}`} />
                   <span className="text-sm">Kebiasaan Baik</span>
-                  <span className="text-[10px] text-muted">Ingin dipertahankan</span>
+                  <span className={`text-[10px] ${selectedCategory === "good" ? "text-emerald-400/80" : "text-muted"}`}>
+                    Ingin dipertahankan
+                  </span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("bad")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all cursor-pointer ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
                     selectedCategory === "bad"
-                      ? "border-bad bg-bad/15 text-bad shadow-glow font-bold"
-                      : "border-border bg-surface-raised/40 text-muted hover:border-bad/50"
+                      ? "border-rose-700/50 bg-rose-950/30 text-rose-300 font-semibold shadow-sm ring-1 ring-rose-500/20"
+                      : "border-border/70 bg-surface-raised/40 text-muted hover:border-border hover:text-fg hover:bg-surface-raised/60"
                   }`}
                 >
-                  <HiHandRaised className="h-6 w-6 text-bad" />
+                  <HiHandRaised className={`h-5 w-5 ${selectedCategory === "bad" ? "text-rose-400" : "text-muted"}`} />
                   <span className="text-sm">Kebiasaan Buruk</span>
-                  <span className="text-[10px] text-muted">Ingin dikurangi</span>
+                  <span className={`text-[10px] ${selectedCategory === "bad" ? "text-rose-400/80" : "text-muted"}`}>
+                    Ingin dikurangi
+                  </span>
                 </button>
               </div>
             )}
@@ -221,18 +225,22 @@ export function HabitForm({
           </div>
         </ModalBody>
 
-        <ModalFooter className="flex justify-end gap-2">
-          <Button color="alternative" onClick={onClose} disabled={isSubmitting}>
-            Batal
-          </Button>
-          <Button
-            type="submit"
-            color="default"
+        <ModalFooter className="flex justify-end gap-2 border-t border-border/60 p-4">
+          <button
+            type="button"
+            onClick={onClose}
             disabled={isSubmitting}
-            className="shadow-glow font-semibold"
+            className="rounded-full border border-border/80 bg-surface-raised/40 px-5 py-2.5 text-xs font-semibold text-muted hover:bg-surface-raised hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="rounded-full bg-primary px-6 py-2.5 text-xs font-semibold text-on-primary hover:bg-primary-hover focus:ring-4 focus:ring-primary/20 shadow-sm transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmitting ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <Spinner size="sm" />
                 <span>Menyimpan...</span>
               </div>
@@ -241,7 +249,7 @@ export function HabitForm({
             ) : (
               "Tambah Kebiasaan"
             )}
-          </Button>
+          </button>
         </ModalFooter>
       </form>
     </Modal>

@@ -20,7 +20,7 @@ export function EmojiPicker({ selected, onSelect }: EmojiPickerProps) {
       <label className="block text-xs font-medium text-muted">
         Pilih Emoji Ikon
       </label>
-      <div className="grid grid-cols-8 gap-2 rounded-2xl border border-border bg-surface-raised/40 p-3 max-h-36 overflow-y-auto">
+      <div className="grid grid-cols-8 gap-2 rounded-2xl border border-border/70 bg-surface-raised/30 p-2.5 max-h-36 overflow-y-auto">
         {EMOJI_OPTIONS.map((emoji) => {
           const isSelected = selected === emoji;
           return (
@@ -29,10 +29,10 @@ export function EmojiPicker({ selected, onSelect }: EmojiPickerProps) {
               type="button"
               onClick={() => onSelect(emoji)}
               aria-label={`Pilih emoji ${emoji}`}
-              className={`flex h-9 w-9 items-center justify-center rounded-xl text-xl transition-transform hover:scale-110 active:scale-95 cursor-pointer ${
+              className={`flex h-9 w-9 items-center justify-center rounded-xl text-xl transition-all cursor-pointer ${
                 isSelected
-                  ? "bg-primary/20 border-2 border-primary shadow-glow scale-105"
-                  : "hover:bg-surface-raised"
+                  ? "bg-surface-raised border border-primary/60 text-fg ring-2 ring-primary/25 shadow-sm"
+                  : "hover:bg-surface-raised/70"
               }`}
             >
               {emoji}

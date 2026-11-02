@@ -36,52 +36,52 @@ export const flowbiteCustomTheme = createTheme({
     root: {
       base: "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
       show: {
-        on: "flex bg-black/75 backdrop-blur-sm",
+        on: "flex bg-black/80 backdrop-blur-md",
         off: "hidden",
       },
     },
     content: {
       base: "relative h-full w-full p-4 md:h-auto",
       inner:
-        "relative flex max-h-[90dvh] flex-col rounded-3xl border border-border bg-surface text-fg shadow-soft",
+        "relative flex max-h-[90dvh] flex-col rounded-3xl border border-border/70 bg-[#221F1D] text-fg shadow-2xl",
     },
     body: {
       base: "flex-1 overflow-auto p-5 md:p-6 text-fg",
     },
     header: {
-      base: "flex items-start justify-between rounded-t-3xl border-b border-border p-5",
-      title: "text-xl font-bold font-display text-fg",
+      base: "flex items-start justify-between rounded-t-3xl border-b border-border/60 p-5",
+      title: "text-lg font-bold font-display text-fg",
       close: {
-        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface-raised hover:text-fg cursor-pointer",
+        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface-raised hover:text-fg cursor-pointer transition-colors",
         icon: "h-5 w-5",
       },
     },
     footer: {
-      base: "flex items-center gap-2 rounded-b-3xl border-t border-border p-5",
+      base: "flex items-center gap-2 rounded-b-3xl border-t border-border/60 p-5",
     },
   },
   textInput: {
     field: {
       input: {
-        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-sm",
+        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-sm transition-colors",
         colors: {
-          gray: "border-border bg-surface-raised text-fg placeholder:text-muted focus:border-primary focus:ring-primary/40",
-          info: "border-primary bg-surface-raised text-fg placeholder:text-muted focus:border-primary focus:ring-primary/40",
-          failure: "border-bad bg-surface-raised text-fg placeholder:text-muted focus:border-bad focus:ring-bad/40",
-          warning: "border-accent bg-surface-raised text-fg placeholder:text-muted focus:border-accent focus:ring-accent/40",
-          success: "border-good bg-surface-raised text-fg placeholder:text-muted focus:border-good focus:ring-good/40",
+          gray: "border-border/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20",
+          info: "border-primary/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20",
+          failure: "border-bad/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-bad focus:ring-bad/20",
+          warning: "border-accent/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-accent focus:ring-accent/20",
+          success: "border-good/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-good focus:ring-good/20",
         },
       },
     },
   },
   textarea: {
-    base: "block w-full rounded-2xl border border-border bg-surface-raised p-3 text-sm text-fg placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none",
+    base: "block w-full rounded-2xl border border-border/80 bg-surface-raised/40 p-3 text-sm text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors",
     colors: {
-      gray: "border-border bg-surface-raised text-fg focus:border-primary focus:ring-primary/40",
-      info: "border-primary bg-surface-raised text-fg focus:border-primary focus:ring-primary/40",
-      failure: "border-bad bg-surface-raised text-fg focus:border-bad focus:ring-bad/40",
-      warning: "border-accent bg-surface-raised text-fg focus:border-accent focus:ring-accent/40",
-      success: "border-good bg-surface-raised text-fg focus:border-good focus:ring-good/40",
+      gray: "border-border/80 bg-surface-raised/40 text-fg focus:border-primary/60 focus:ring-primary/20",
+      info: "border-primary/80 bg-surface-raised/40 text-fg focus:border-primary/60 focus:ring-primary/20",
+      failure: "border-bad/80 bg-surface-raised/40 text-fg focus:border-bad/60 focus:ring-bad/20",
+      warning: "border-accent/80 bg-surface-raised/40 text-fg focus:border-accent/60 focus:ring-accent/20",
+      success: "border-good/80 bg-surface-raised/40 text-fg focus:border-good/60 focus:ring-good/20",
     },
   },
   select: {
