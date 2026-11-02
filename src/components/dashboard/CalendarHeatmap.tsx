@@ -57,7 +57,7 @@ export function CalendarHeatmap({ goodDays, badDays }: CalendarHeatmapProps) {
           <button
             type="button"
             onClick={() => setCategory("good")}
-            className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+            className={`rounded-full px-3 py-1 text-xs font-semibold transition-all cursor-pointer ${
               isGood
                 ? "bg-good text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
@@ -68,7 +68,7 @@ export function CalendarHeatmap({ goodDays, badDays }: CalendarHeatmapProps) {
           <button
             type="button"
             onClick={() => setCategory("bad")}
-            className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+            className={`rounded-full px-3 py-1 text-xs font-semibold transition-all cursor-pointer ${
               !isGood
                 ? "bg-bad text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"

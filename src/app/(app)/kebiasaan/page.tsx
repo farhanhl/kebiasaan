@@ -137,7 +137,7 @@ export default function KebiasaanPage() {
               setFilter("all");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
               !showArchived && filter === "all"
                 ? "bg-primary text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
@@ -151,7 +151,7 @@ export default function KebiasaanPage() {
               setFilter("good");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
               !showArchived && filter === "good"
                 ? "bg-good text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
@@ -165,7 +165,7 @@ export default function KebiasaanPage() {
               setFilter("bad");
               setShowArchived(false);
             }}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
               !showArchived && filter === "bad"
                 ? "bg-bad text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"
@@ -177,7 +177,7 @@ export default function KebiasaanPage() {
             <button
               type="button"
               onClick={() => setShowArchived(true)}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                 showArchived
                   ? "bg-muted text-on-primary"
                   : "text-muted hover:text-fg"
@@ -288,7 +288,7 @@ export default function KebiasaanPage() {
                     }}
                     title="Ubah Kebiasaan"
                     aria-label={`Ubah ${habit.name}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-surface-raised hover:text-fg transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-surface-raised hover:text-fg transition-colors cursor-pointer"
                   >
                     <HiPencil className="h-4 w-4" />
                   </button>
@@ -298,7 +298,7 @@ export default function KebiasaanPage() {
                     onClick={() => handleArchiveToggle(habit)}
                     title={habit.isArchived ? "Aktifkan Kembali" : "Arsipkan"}
                     aria-label={habit.isArchived ? `Aktifkan ${habit.name}` : `Arsipkan ${habit.name}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-surface-raised hover:text-fg transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-surface-raised hover:text-fg transition-colors cursor-pointer"
                   >
                     {habit.isArchived ? (
                       <HiArchiveBoxArrowDown className="h-4 w-4 text-primary" />
@@ -312,7 +312,7 @@ export default function KebiasaanPage() {
                     onClick={() => setDeleteTarget(habit)}
                     title="Hapus Kebiasaan"
                     aria-label={`Hapus ${habit.name}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-bad/20 hover:text-bad transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-bad/20 hover:text-bad transition-colors cursor-pointer"
                   >
                     <HiTrash className="h-4 w-4" />
                   </button>

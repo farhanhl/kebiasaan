@@ -24,7 +24,7 @@ export function PeriodTabs({ currentPeriod, onChange }: PeriodTabsProps) {
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
               isActive
                 ? "bg-primary text-on-primary shadow-glow"
                 : "text-muted hover:text-fg"

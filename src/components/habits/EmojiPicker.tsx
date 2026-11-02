@@ -29,7 +29,7 @@ export function EmojiPicker({ selected, onSelect }: EmojiPickerProps) {
               type="button"
               onClick={() => onSelect(emoji)}
               aria-label={`Pilih emoji ${emoji}`}
-              className={`flex h-9 w-9 items-center justify-center rounded-xl text-xl transition-transform hover:scale-110 active:scale-95 ${
+              className={`flex h-9 w-9 items-center justify-center rounded-xl text-xl transition-transform hover:scale-110 active:scale-95 cursor-pointer ${
                 isSelected
                   ? "bg-primary/20 border-2 border-primary shadow-glow scale-105"
                   : "hover:bg-surface-raised"

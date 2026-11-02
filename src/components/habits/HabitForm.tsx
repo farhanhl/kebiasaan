@@ -121,7 +121,7 @@ export function HabitForm({
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("good")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all cursor-pointer ${
                     selectedCategory === "good"
                       ? "border-good bg-good/15 text-good shadow-glow font-bold"
                       : "border-border bg-surface-raised/40 text-muted hover:border-good/50"
@@ -135,7 +135,7 @@ export function HabitForm({
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("bad")}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-4 text-center transition-all cursor-pointer ${
                     selectedCategory === "bad"
                       ? "border-bad bg-bad/15 text-bad shadow-glow font-bold"
                       : "border-border bg-surface-raised/40 text-muted hover:border-bad/50"

@@ -78,7 +78,7 @@ export function SwRegister() {
         <button
           type="button"
           onClick={() => setShowUpdateToast(false)}
-          className="text-muted hover:text-fg text-xs p-1"
+          className="text-muted hover:text-fg text-xs p-1 cursor-pointer"
         >
           ✕
         </button>

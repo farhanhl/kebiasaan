@@ -91,7 +91,7 @@ export default function ProfilPage() {
                 type="button"
                 onClick={handleOpenEditName}
                 aria-label="Ubah nama tampilan"
-                className="rounded-full p-1 text-muted hover:bg-surface-raised hover:text-fg transition-colors"
+                className="rounded-full p-1 text-muted hover:bg-surface-raised hover:text-fg transition-colors cursor-pointer"
               >
                 <HiPencil className="h-4 w-4" />
               </button>

@@ -42,7 +42,7 @@ export function CounterButton({
         onClick={onDecrement}
         disabled={count <= 0 || disabled}
         aria-label="Kurangi satu"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-all hover:bg-surface-raised hover:text-fg active:scale-90 disabled:cursor-not-allowed disabled:opacity-30"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-all hover:bg-surface-raised hover:text-fg active:scale-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
       >
         <HiMinus className="h-4 w-4" />
       </button>
@@ -70,7 +70,7 @@ export function CounterButton({
           onClick={handleIncrement}
           disabled={disabled || count >= 999}
           aria-label="Tambah satu"
-          className={`relative flex h-12 w-12 items-center justify-center rounded-full font-bold shadow-glow transition-all ${
+          className={`relative flex h-12 w-12 items-center justify-center rounded-full font-bold shadow-glow transition-all cursor-pointer ${
             isGood
               ? "bg-primary text-on-primary hover:bg-primary-hover focus:ring-4 focus:ring-primary/40"
               : "border border-bad/30 bg-bad/15 text-bad hover:bg-bad/25 focus:ring-4 focus:ring-bad/40"

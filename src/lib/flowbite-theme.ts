@@ -2,7 +2,7 @@ import { createTheme } from "flowbite-react";
 
 export const flowbiteCustomTheme = createTheme({
   button: {
-    base: "group relative flex items-center justify-center text-center font-medium transition-all focus:outline-none focus:ring-4 rounded-full",
+    base: "group relative flex items-center justify-center text-center font-medium transition-all focus:outline-none focus:ring-4 rounded-full cursor-pointer disabled:cursor-not-allowed",
     pill: "rounded-full",
     color: {
       default:
@@ -29,7 +29,7 @@ export const flowbiteCustomTheme = createTheme({
         off: "flex-col",
         on: "flex-col md:max-w-xl md:flex-row",
       },
-      href: "hover:border-primary/50 hover:shadow-glow",
+      href: "hover:border-primary/50 hover:shadow-glow cursor-pointer",
     },
   },
   modal: {
@@ -52,7 +52,7 @@ export const flowbiteCustomTheme = createTheme({
       base: "flex items-start justify-between rounded-t-3xl border-b border-border p-5",
       title: "text-xl font-bold font-display text-fg",
       close: {
-        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface-raised hover:text-fg",
+        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface-raised hover:text-fg cursor-pointer",
         icon: "h-5 w-5",
       },
     },

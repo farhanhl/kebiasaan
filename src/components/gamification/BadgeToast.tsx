@@ -48,7 +48,7 @@ export function BadgeToast({ badgeId, onClose }: BadgeToastProps) {
           type="button"
           onClick={onClose}
           aria-label="Tutup notifikasi"
-          className="text-muted hover:text-fg text-sm"
+          className="text-muted hover:text-fg text-sm cursor-pointer"
         >
           ✕
         </button>

@@ -38,7 +38,7 @@ export function MoodPicker({ currentMood, onSelectMood }: MoodPickerProps) {
               onClick={() => handleClick(m.id)}
               aria-label={`Mood ${m.label}`}
               title={m.label}
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-sm transition-all hover:scale-125 active:scale-90 ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full text-sm transition-all hover:scale-125 active:scale-90 cursor-pointer ${
                 isSelected
                   ? "bg-accent/25 ring-2 ring-accent scale-110 shadow-glow"
                   : "opacity-60 hover:opacity-100"
