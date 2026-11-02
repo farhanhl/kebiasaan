@@ -355,7 +355,7 @@ export default function KebiasaanPage() {
             type="button"
             onClick={() => setDeleteTarget(null)}
             disabled={deleting}
-            className="rounded-full border border-border/80 bg-surface-raised/40 px-5 py-2 text-xs font-semibold text-muted hover:bg-surface-raised hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-full border border-border/80 bg-surface/50 px-5 py-2 text-xs font-semibold text-muted hover:bg-surface hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
           >
             Batal
           </button>

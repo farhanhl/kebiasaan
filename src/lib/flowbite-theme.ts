@@ -43,21 +43,21 @@ export const flowbiteCustomTheme = createTheme({
     content: {
       base: "relative h-full w-full p-4 md:h-auto",
       inner:
-        "relative flex max-h-[90dvh] flex-col rounded-3xl border border-border/70 bg-[#221F1D] text-fg shadow-2xl",
+        "relative flex max-h-[90dvh] flex-col rounded-3xl border border-border/80 bg-bg text-fg shadow-2xl",
     },
     body: {
-      base: "flex-1 overflow-auto p-5 md:p-6 text-fg",
+      base: "flex-1 overflow-auto p-5 md:p-6 bg-bg text-fg",
     },
     header: {
-      base: "flex items-start justify-between rounded-t-3xl border-b border-border/60 p-5",
+      base: "flex items-start justify-between rounded-t-3xl border-b border-border/60 bg-bg p-5",
       title: "text-lg font-bold font-display text-fg",
       close: {
-        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface-raised hover:text-fg cursor-pointer transition-colors",
+        base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface hover:text-fg cursor-pointer transition-colors",
         icon: "h-5 w-5",
       },
     },
     footer: {
-      base: "flex items-center gap-2 rounded-b-3xl border-t border-border/60 p-5",
+      base: "flex items-center gap-2 rounded-b-3xl border-t border-border/60 bg-bg p-5",
     },
   },
   textInput: {
@@ -65,23 +65,23 @@ export const flowbiteCustomTheme = createTheme({
       input: {
         base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-sm transition-colors",
         colors: {
-          gray: "border-border/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20",
-          info: "border-primary/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20",
-          failure: "border-bad/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-bad focus:ring-bad/20",
-          warning: "border-accent/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-accent focus:ring-accent/20",
-          success: "border-good/80 bg-surface-raised/40 text-fg placeholder:text-muted/60 focus:border-good focus:ring-good/20",
+          gray: "border-border/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20",
+          info: "border-primary/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20",
+          failure: "border-bad/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-bad focus:ring-bad/20",
+          warning: "border-accent/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-accent focus:ring-accent/20",
+          success: "border-good/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-good focus:ring-good/20",
         },
       },
     },
   },
   textarea: {
-    base: "block w-full rounded-2xl border border-border/80 bg-surface-raised/40 p-3 text-sm text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors",
+    base: "block w-full rounded-2xl border border-border/80 bg-surface/60 p-3 text-sm text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors",
     colors: {
-      gray: "border-border/80 bg-surface-raised/40 text-fg focus:border-primary/60 focus:ring-primary/20",
-      info: "border-primary/80 bg-surface-raised/40 text-fg focus:border-primary/60 focus:ring-primary/20",
-      failure: "border-bad/80 bg-surface-raised/40 text-fg focus:border-bad/60 focus:ring-bad/20",
-      warning: "border-accent/80 bg-surface-raised/40 text-fg focus:border-accent/60 focus:ring-accent/20",
-      success: "border-good/80 bg-surface-raised/40 text-fg focus:border-good/60 focus:ring-good/20",
+      gray: "border-border/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20",
+      info: "border-primary/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20",
+      failure: "border-bad/80 bg-surface/60 text-fg focus:border-bad/60 focus:ring-bad/20",
+      warning: "border-accent/80 bg-surface/60 text-fg focus:border-accent/60 focus:ring-accent/20",
+      success: "border-good/80 bg-surface/60 text-fg focus:border-good/60 focus:ring-good/20",
     },
   },
   select: {

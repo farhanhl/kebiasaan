@@ -124,7 +124,7 @@ export function HabitForm({
                   className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
                     selectedCategory === "good"
                       ? "border-emerald-600/50 bg-emerald-950/30 text-emerald-300 font-semibold shadow-sm ring-1 ring-emerald-500/20"
-                      : "border-border/70 bg-surface-raised/40 text-muted hover:border-border hover:text-fg hover:bg-surface-raised/60"
+                      : "border-border/70 bg-surface/50 text-muted hover:border-border hover:text-fg hover:bg-surface/80"
                   }`}
                 >
                   <HiSparkles className={`h-5 w-5 ${selectedCategory === "good" ? "text-emerald-400" : "text-muted"}`} />
@@ -140,7 +140,7 @@ export function HabitForm({
                   className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 text-center transition-all cursor-pointer ${
                     selectedCategory === "bad"
                       ? "border-rose-700/50 bg-rose-950/30 text-rose-300 font-semibold shadow-sm ring-1 ring-rose-500/20"
-                      : "border-border/70 bg-surface-raised/40 text-muted hover:border-border hover:text-fg hover:bg-surface-raised/60"
+                      : "border-border/70 bg-surface/50 text-muted hover:border-border hover:text-fg hover:bg-surface/80"
                   }`}
                 >
                   <HiHandRaised className={`h-5 w-5 ${selectedCategory === "bad" ? "text-rose-400" : "text-muted"}`} />
@@ -230,7 +230,7 @@ export function HabitForm({
             type="button"
             onClick={onClose}
             disabled={isSubmitting}
-            className="rounded-full border border-border/80 bg-surface-raised/40 px-5 py-2.5 text-xs font-semibold text-muted hover:bg-surface-raised hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-full border border-border/80 bg-surface/50 px-5 py-2.5 text-xs font-semibold text-muted hover:bg-surface hover:text-fg transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
           >
             Batal
           </button>
