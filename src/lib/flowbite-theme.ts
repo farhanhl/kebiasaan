@@ -49,7 +49,7 @@ export const flowbiteCustomTheme = createTheme({
       base: "flex-1 overflow-auto p-5 md:p-6 bg-bg text-fg",
     },
     header: {
-      base: "flex items-start justify-between rounded-t-3xl border-b border-border/60 bg-bg p-5",
+      base: "flex items-start justify-between rounded-t-3xl border-b-0 bg-bg p-5 pb-2",
       title: "text-lg font-bold font-display text-fg",
       close: {
         base: "ms-auto inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-muted hover:bg-surface hover:text-fg cursor-pointer transition-colors",
@@ -57,7 +57,7 @@ export const flowbiteCustomTheme = createTheme({
       },
     },
     footer: {
-      base: "flex items-center gap-2 rounded-b-3xl border-t border-border/60 bg-bg p-5",
+      base: "flex items-center gap-2 rounded-b-3xl border-t-0 bg-bg p-5 pt-2",
     },
   },
   textInput: {

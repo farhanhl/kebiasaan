@@ -396,7 +396,7 @@ export default function HabitDetailPage() {
             Semua catatan kebiasaan ini ikut terhapus dan nggak bisa dikembalikan.
           </div>
         </ModalBody>
-        <ModalFooter className="flex justify-end gap-2 border-t border-border/60 p-4">
+        <ModalFooter className="flex justify-end gap-2 border-t-0 p-5 pt-1">
           <button
             type="button"
             onClick={() => setDeleteConfirmOpen(false)}

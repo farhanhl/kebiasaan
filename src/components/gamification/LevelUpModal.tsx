@@ -40,7 +40,7 @@ export function LevelUpModal({ show, level, onClose }: LevelUpModalProps) {
           Konsistensimu terbukti menghasilkan hasil nyata. Terus pertahankan ritme santaimu!
         </p>
       </ModalBody>
-      <ModalFooter className="flex justify-center border-t border-border/60 p-4">
+      <ModalFooter className="flex justify-center border-t-0 p-5 pt-1">
         <button
           type="button"
           onClick={onClose}
