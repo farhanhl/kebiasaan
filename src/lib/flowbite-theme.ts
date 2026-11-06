@@ -34,16 +34,27 @@ export const flowbiteCustomTheme = createTheme({
   },
   modal: {
     root: {
-      base: "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+      base: "fixed inset-0 z-50 h-dvh w-screen overflow-y-auto overflow-x-hidden",
       show: {
-        on: "flex bg-black/80 backdrop-blur-md",
+        on: "flex items-center justify-center p-4 bg-black/80 backdrop-blur-md min-h-dvh",
         off: "hidden",
+      },
+      positions: {
+        "top-left": "items-start justify-start",
+        "top-center": "items-start justify-center",
+        "top-right": "items-start justify-end",
+        "center-left": "items-center justify-start",
+        "center": "items-center justify-center",
+        "center-right": "items-center justify-end",
+        "bottom-right": "items-end justify-end",
+        "bottom-center": "items-end justify-center",
+        "bottom-left": "items-end justify-start",
       },
     },
     content: {
-      base: "relative h-full w-full p-4 md:h-auto",
+      base: "relative w-full max-w-md my-auto flex items-center justify-center",
       inner:
-        "relative flex max-h-[90dvh] flex-col rounded-3xl border border-border/80 bg-bg text-fg shadow-2xl",
+        "relative flex w-full max-h-[90dvh] flex-col rounded-3xl border border-border/80 bg-bg text-fg shadow-2xl overflow-hidden",
     },
     body: {
       base: "flex-1 overflow-auto p-5 md:p-6 bg-bg text-fg",
@@ -63,37 +74,37 @@ export const flowbiteCustomTheme = createTheme({
   textInput: {
     field: {
       input: {
-        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-sm transition-colors",
+        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-base md:text-sm transition-colors",
         colors: {
-          gray: "border-border/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20",
-          info: "border-primary/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20",
-          failure: "border-bad/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-bad focus:ring-bad/20",
-          warning: "border-accent/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-accent focus:ring-accent/20",
-          success: "border-good/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-good focus:ring-good/20",
+          gray: "border-border/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20 dark:border-border/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-primary/60 dark:focus:ring-primary/20",
+          info: "border-primary/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20 dark:border-primary/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-primary dark:focus:ring-primary/20",
+          failure: "border-bad/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-bad focus:ring-bad/20 dark:border-bad/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-bad dark:focus:ring-bad/20",
+          warning: "border-accent/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-accent focus:ring-accent/20 dark:border-accent/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-accent dark:focus:ring-accent/20",
+          success: "border-good/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-good focus:ring-good/20 dark:border-good/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-good dark:focus:ring-good/20",
         },
       },
     },
   },
   textarea: {
-    base: "block w-full rounded-2xl border border-border/80 bg-surface/60 p-3 text-sm text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors",
+    base: "block w-full rounded-2xl border border-border/80 bg-surface/60 p-3 text-base md:text-sm text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors dark:border-border/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-primary/60 dark:focus:ring-primary/20",
     colors: {
-      gray: "border-border/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20",
-      info: "border-primary/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20",
-      failure: "border-bad/80 bg-surface/60 text-fg focus:border-bad/60 focus:ring-bad/20",
-      warning: "border-accent/80 bg-surface/60 text-fg focus:border-accent/60 focus:ring-accent/20",
-      success: "border-good/80 bg-surface/60 text-fg focus:border-good/60 focus:ring-good/20",
+      gray: "border-border/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20 dark:border-border/80 dark:bg-surface/60 dark:text-fg dark:focus:border-primary/60 dark:focus:ring-primary/20",
+      info: "border-primary/80 bg-surface/60 text-fg focus:border-primary/60 focus:ring-primary/20 dark:border-primary/80 dark:bg-surface/60 dark:text-fg dark:focus:border-primary/60 dark:focus:ring-primary/20",
+      failure: "border-bad/80 bg-surface/60 text-fg focus:border-bad/60 focus:ring-bad/20 dark:border-bad/80 dark:bg-surface/60 dark:text-fg dark:focus:border-bad/60 dark:focus:ring-bad/20",
+      warning: "border-accent/80 bg-surface/60 text-fg focus:border-accent/60 focus:ring-accent/20 dark:border-accent/80 dark:bg-surface/60 dark:text-fg dark:focus:border-accent/60 dark:focus:ring-accent/20",
+      success: "border-good/80 bg-surface/60 text-fg focus:border-good/60 focus:ring-good/20 dark:border-good/80 dark:bg-surface/60 dark:text-fg dark:focus:border-good/60 dark:focus:ring-good/20",
     },
   },
   select: {
     field: {
       select: {
-        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-sm",
+        base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-base md:text-sm",
         colors: {
-          gray: "border-border bg-surface-raised text-fg focus:border-primary focus:ring-primary/40",
-          info: "border-primary bg-surface-raised text-fg focus:border-primary focus:ring-primary/40",
-          failure: "border-bad bg-surface-raised text-fg focus:border-bad focus:ring-bad/40",
-          warning: "border-accent bg-surface-raised text-fg focus:border-accent focus:ring-accent/40",
-          success: "border-good bg-surface-raised text-fg focus:border-good focus:ring-good/40",
+          gray: "border-border bg-surface-raised text-fg focus:border-primary focus:ring-primary/40 dark:border-border dark:bg-surface-raised dark:text-fg",
+          info: "border-primary bg-surface-raised text-fg focus:border-primary focus:ring-primary/40 dark:border-primary dark:bg-surface-raised dark:text-fg",
+          failure: "border-bad bg-surface-raised text-fg focus:border-bad focus:ring-bad/40 dark:border-bad dark:bg-surface-raised dark:text-fg",
+          warning: "border-accent bg-surface-raised text-fg focus:border-accent focus:ring-accent/40 dark:border-accent dark:bg-surface-raised dark:text-fg",
+          success: "border-good bg-surface-raised text-fg focus:border-good focus:ring-good/40 dark:border-good dark:bg-surface-raised dark:text-fg",
         },
       },
     },
