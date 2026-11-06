@@ -25,12 +25,12 @@ import {
   aggregateTopHabits,
   aggregateMood,
   aggregateHeatmap,
+  filterLogsByPeriod,
 } from "@/lib/stats";
 import {
-  yesterdayKey,
   getHeatmapDateRange,
 } from "@/lib/date";
-import { parseISO, subWeeks, subMonths, format, startOfISOWeek, endOfISOWeek, startOfMonth, endOfMonth, addDays } from "date-fns";
+import { parseISO, subMonths, format, startOfMonth, addDays } from "date-fns";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -59,39 +59,7 @@ export default function DashboardPage() {
 
   // Compute period boundaries for current and previous
   const { currentLogs, prevLogs, periodLabel } = useMemo(() => {
-    if (period === "daily") {
-      const yesterday = yesterdayKey();
-      const current = logs.filter((l) => l.date === today);
-      const prev = logs.filter((l) => l.date === yesterday);
-      return { currentLogs: current, prevLogs: prev, periodLabel: "kemarin" };
-    }
-
-    if (period === "weekly") {
-      const todayDate = parseISO(today);
-      const currentStart = format(startOfISOWeek(todayDate), "yyyy-MM-dd");
-      const currentEnd = format(endOfISOWeek(todayDate), "yyyy-MM-dd");
-
-      const prevWeekDate = subWeeks(todayDate, 1);
-      const prevStart = format(startOfISOWeek(prevWeekDate), "yyyy-MM-dd");
-      const prevEnd = format(endOfISOWeek(prevWeekDate), "yyyy-MM-dd");
-
-      const current = logs.filter((l) => l.date >= currentStart && l.date <= currentEnd);
-      const prev = logs.filter((l) => l.date >= prevStart && l.date <= prevEnd);
-      return { currentLogs: current, prevLogs: prev, periodLabel: "minggu lalu" };
-    }
-
-    // Monthly
-    const todayDate = parseISO(today);
-    const currentStart = format(startOfMonth(todayDate), "yyyy-MM-dd");
-    const currentEnd = format(endOfMonth(todayDate), "yyyy-MM-dd");
-
-    const prevMonthDate = subMonths(todayDate, 1);
-    const prevStart = format(startOfMonth(prevMonthDate), "yyyy-MM-dd");
-    const prevEnd = format(endOfMonth(prevMonthDate), "yyyy-MM-dd");
-
-    const current = logs.filter((l) => l.date >= currentStart && l.date <= currentEnd);
-    const prev = logs.filter((l) => l.date >= prevStart && l.date <= prevEnd);
-    return { currentLogs: current, prevLogs: prev, periodLabel: "bulan lalu" };
+    return filterLogsByPeriod(logs, period, today);
   }, [logs, period, today]);
 
   // Aggregated data

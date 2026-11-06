@@ -5,6 +5,7 @@ import {
   aggregateTopHabits,
   aggregateMood,
   aggregateHeatmap,
+  filterLogsByPeriod,
 } from "../stats";
 import type { HabitLog } from "@/types/log";
 import type { Habit } from "@/types/habit";
@@ -205,6 +206,66 @@ describe("lib/stats", () => {
     const heatmap = aggregateHeatmap(logs, "good", ["2026-11-01", "2026-11-02"]);
     expect(heatmap[0].level).toBe(0);
     expect(heatmap[1].level).toBe(3);
+  });
+
+  it("filterLogsByPeriod splits logs properly for daily, weekly, and monthly", () => {
+    const logs: HabitLog[] = [
+      {
+        id: "1",
+        habitId: "h1",
+        category: "good",
+        date: "2026-11-06",
+        weekKey: "2026-W45",
+        monthKey: "2026-11",
+        count: 1,
+        mood: null,
+        xpEarned: 10,
+        createdAt: dummyTimestamp,
+        updatedAt: dummyTimestamp,
+      },
+      {
+        id: "2",
+        habitId: "h1",
+        category: "good",
+        date: "2026-11-05",
+        weekKey: "2026-W45",
+        monthKey: "2026-11",
+        count: 1,
+        mood: null,
+        xpEarned: 10,
+        createdAt: dummyTimestamp,
+        updatedAt: dummyTimestamp,
+      },
+      {
+        id: "3",
+        habitId: "h1",
+        category: "good",
+        date: "2026-10-25",
+        weekKey: "2026-W43",
+        monthKey: "2026-10",
+        count: 2,
+        mood: null,
+        xpEarned: 10,
+        createdAt: dummyTimestamp,
+        updatedAt: dummyTimestamp,
+      },
+    ];
+
+    const daily = filterLogsByPeriod(logs, "daily", "2026-11-06");
+    expect(daily.currentLogs).toHaveLength(1);
+    expect(daily.currentLogs[0].date).toBe("2026-11-06");
+    expect(daily.prevLogs).toHaveLength(1);
+    expect(daily.prevLogs[0].date).toBe("2026-11-05");
+    expect(daily.periodLabel).toBe("kemarin");
+
+    const weekly = filterLogsByPeriod(logs, "weekly", "2026-11-06");
+    expect(weekly.currentLogs).toHaveLength(2);
+    expect(weekly.periodLabel).toBe("minggu lalu");
+
+    const monthly = filterLogsByPeriod(logs, "monthly", "2026-11-06");
+    expect(monthly.currentLogs).toHaveLength(2);
+    expect(monthly.prevLogs).toHaveLength(1);
+    expect(monthly.periodLabel).toBe("bulan lalu");
   });
 });
 

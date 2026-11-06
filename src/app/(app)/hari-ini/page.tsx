@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useHabits } from "@/hooks/useHabits";
@@ -41,19 +41,31 @@ export default function HariIniPage() {
   const [newBadge, setNewBadge] = useState<BadgeId | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const activeHabits = habits.filter((h) => !h.isArchived);
-  const goodHabits = activeHabits.filter((h) => h.category === "good");
-  const badHabits = activeHabits.filter((h) => h.category === "bad");
+  const activeHabits = useMemo(
+    () => habits.filter((h) => !h.isArchived),
+    [habits]
+  );
+  const goodHabits = useMemo(
+    () => activeHabits.filter((h) => h.category === "good"),
+    [activeHabits]
+  );
+  const badHabits = useMemo(
+    () => activeHabits.filter((h) => h.category === "bad"),
+    [activeHabits]
+  );
 
   // Calculate totals for today
-  let goodTodayTotal = 0;
-  let badTodayTotal = 0;
-  for (const h of goodHabits) {
-    goodTodayTotal += logsByHabitId.get(h.id)?.count || 0;
-  }
-  for (const h of badHabits) {
-    badTodayTotal += logsByHabitId.get(h.id)?.count || 0;
-  }
+  const { goodTodayTotal, badTodayTotal } = useMemo(() => {
+    let good = 0;
+    let bad = 0;
+    for (const h of goodHabits) {
+      good += logsByHabitId.get(h.id)?.count || 0;
+    }
+    for (const h of badHabits) {
+      bad += logsByHabitId.get(h.id)?.count || 0;
+    }
+    return { goodTodayTotal: good, badTodayTotal: bad };
+  }, [goodHabits, badHabits, logsByHabitId]);
 
   // Check for perfect day
   useEffect(() => {
@@ -84,55 +96,64 @@ export default function HariIniPage() {
     return () => clearTimeout(timer);
   }, [toastMessage]);
 
-  const handleIncrement = async (habit: Habit) => {
-    if (!user) return;
-    try {
-      const result: LogResult = await incrementLog(user.uid, habit, {
-        date: today,
-        weekKey,
-        monthKey,
-      });
+  const handleIncrement = useCallback(
+    async (habit: Habit) => {
+      if (!user) return;
+      try {
+        const result: LogResult = await incrementLog(user.uid, habit, {
+          date: today,
+          weekKey,
+          monthKey,
+        });
 
-      if (habit.category === "good") {
-        setToastMessage(getRandomGoodMessage());
-      } else {
-        setToastMessage(getRandomBadMessage());
+        if (habit.category === "good") {
+          setToastMessage(getRandomGoodMessage());
+        } else {
+          setToastMessage(getRandomBadMessage());
+        }
+
+        if (result.levelUp) {
+          setLevelUpLevel(profile ? profile.level + 1 : 2);
+        }
+
+        if (result.newBadges && result.newBadges.length > 0) {
+          setNewBadge(result.newBadges[0]);
+        }
+      } catch (err) {
+        console.error("increment error:", err);
+        setToastMessage(copy.errorGeneral);
       }
+    },
+    [user, today, weekKey, monthKey, profile]
+  );
 
-      if (result.levelUp) {
-        setLevelUpLevel(profile ? profile.level + 1 : 2);
+  const handleDecrement = useCallback(
+    async (habit: Habit) => {
+      if (!user) return;
+      try {
+        await decrementLog(user.uid, habit, {
+          date: today,
+          weekKey,
+          monthKey,
+        });
+      } catch (err) {
+        console.error("decrement error:", err);
       }
+    },
+    [user, today, weekKey, monthKey]
+  );
 
-      if (result.newBadges && result.newBadges.length > 0) {
-        setNewBadge(result.newBadges[0]);
+  const handleSetMood = useCallback(
+    async (habit: Habit, mood: Mood | null) => {
+      if (!user) return;
+      try {
+        await setMood(user.uid, habit, today, mood);
+      } catch (err) {
+        console.error("setMood error:", err);
       }
-    } catch (err) {
-      console.error("increment error:", err);
-      setToastMessage(copy.errorGeneral);
-    }
-  };
-
-  const handleDecrement = async (habit: Habit) => {
-    if (!user) return;
-    try {
-      await decrementLog(user.uid, habit, {
-        date: today,
-        weekKey,
-        monthKey,
-      });
-    } catch (err) {
-      console.error("decrement error:", err);
-    }
-  };
-
-  const handleSetMood = async (habit: Habit, mood: Mood | null) => {
-    if (!user) return;
-    try {
-      await setMood(user.uid, habit, today, mood);
-    } catch (err) {
-      console.error("setMood error:", err);
-    }
-  };
+    },
+    [user, today]
+  );
 
   const handleCreateHabit = async (data: HabitFormInput) => {
     if (!user) return;
@@ -227,9 +248,9 @@ export default function HariIniPage() {
                     habit={habit}
                     today={today}
                     todayLog={logsByHabitId.get(habit.id)}
-                    onIncrement={() => handleIncrement(habit)}
-                    onDecrement={() => handleDecrement(habit)}
-                    onSetMood={(mood) => handleSetMood(habit, mood)}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
+                    onSetMood={handleSetMood}
                   />
                 ))}
               </div>
@@ -255,9 +276,9 @@ export default function HariIniPage() {
                     habit={habit}
                     today={today}
                     todayLog={logsByHabitId.get(habit.id)}
-                    onIncrement={() => handleIncrement(habit)}
-                    onDecrement={() => handleDecrement(habit)}
-                    onSetMood={(mood) => handleSetMood(habit, mood)}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
+                    onSetMood={handleSetMood}
                   />
                 ))}
               </div>

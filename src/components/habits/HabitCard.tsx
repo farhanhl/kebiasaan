@@ -14,13 +14,13 @@ interface HabitCardProps {
   habit: Habit;
   todayLog?: HabitLog;
   today: string;
-  onIncrement: () => Promise<void> | void;
-  onDecrement: () => Promise<void> | void;
-  onSetMood: (mood: Mood | null) => Promise<void> | void;
+  onIncrement: (habit: Habit) => Promise<void> | void;
+  onDecrement: (habit: Habit) => Promise<void> | void;
+  onSetMood: (habit: Habit, mood: Mood | null) => Promise<void> | void;
   disabled?: boolean;
 }
 
-export function HabitCard({
+export const HabitCard = React.memo(function HabitCard({
   habit,
   todayLog,
   today,
@@ -34,6 +34,21 @@ export function HabitCard({
   const streak = isGood
     ? getEffectiveStreak(habit, today)
     : calcFreeDays(habit.startDate, habit.lastLogDate, today);
+
+  const handleIncrement = React.useCallback(() => {
+    return onIncrement(habit);
+  }, [onIncrement, habit]);
+
+  const handleDecrement = React.useCallback(() => {
+    return onDecrement(habit);
+  }, [onDecrement, habit]);
+
+  const handleSetMood = React.useCallback(
+    (mood: Mood | null) => {
+      return onSetMood(habit, mood);
+    },
+    [onSetMood, habit]
+  );
 
   return (
     <div
@@ -87,8 +102,8 @@ export function HabitCard({
           <CounterButton
             count={count}
             category={habit.category}
-            onIncrement={onIncrement}
-            onDecrement={onDecrement}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
             disabled={disabled}
           />
         </div>
@@ -99,11 +114,11 @@ export function HabitCard({
         <div className="border-t border-border/60 pt-1">
           <MoodPicker
             currentMood={todayLog?.mood || null}
-            onSelectMood={onSetMood}
+            onSelectMood={handleSetMood}
           />
         </div>
       )}
     </div>
   );
-}
+});
 

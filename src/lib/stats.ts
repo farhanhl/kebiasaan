@@ -14,6 +14,17 @@ import {
   getPastMonths,
   formatDateShort,
 } from "./date";
+import {
+  parseISO,
+  subDays,
+  subWeeks,
+  subMonths,
+  format,
+  startOfISOWeek,
+  endOfISOWeek,
+  startOfMonth,
+  endOfMonth,
+} from "date-fns";
 
 export function aggregateSummary(
   currentLogs: HabitLog[],
@@ -252,4 +263,45 @@ export function aggregateHeatmap(
     };
   });
 }
+
+export function filterLogsByPeriod(
+  logs: HabitLog[],
+  period: PeriodType,
+  today: string
+): { currentLogs: HabitLog[]; prevLogs: HabitLog[]; periodLabel: string } {
+  const todayDate = parseISO(today);
+
+  if (period === "daily") {
+    const yesterday = format(subDays(todayDate, 1), "yyyy-MM-dd");
+    const current = logs.filter((l) => l.date === today);
+    const prev = logs.filter((l) => l.date === yesterday);
+    return { currentLogs: current, prevLogs: prev, periodLabel: "kemarin" };
+  }
+
+  if (period === "weekly") {
+    const currentStart = format(startOfISOWeek(todayDate), "yyyy-MM-dd");
+    const currentEnd = format(endOfISOWeek(todayDate), "yyyy-MM-dd");
+
+    const prevWeekDate = subWeeks(todayDate, 1);
+    const prevStart = format(startOfISOWeek(prevWeekDate), "yyyy-MM-dd");
+    const prevEnd = format(endOfISOWeek(prevWeekDate), "yyyy-MM-dd");
+
+    const current = logs.filter((l) => l.date >= currentStart && l.date <= currentEnd);
+    const prev = logs.filter((l) => l.date >= prevStart && l.date <= prevEnd);
+    return { currentLogs: current, prevLogs: prev, periodLabel: "minggu lalu" };
+  }
+
+  // Monthly
+  const currentStart = format(startOfMonth(todayDate), "yyyy-MM-dd");
+  const currentEnd = format(endOfMonth(todayDate), "yyyy-MM-dd");
+
+  const prevMonthDate = subMonths(todayDate, 1);
+  const prevStart = format(startOfMonth(prevMonthDate), "yyyy-MM-dd");
+  const prevEnd = format(endOfMonth(prevMonthDate), "yyyy-MM-dd");
+
+  const current = logs.filter((l) => l.date >= currentStart && l.date <= currentEnd);
+  const prev = logs.filter((l) => l.date >= prevStart && l.date <= prevEnd);
+  return { currentLogs: current, prevLogs: prev, periodLabel: "bulan lalu" };
+}
+
 

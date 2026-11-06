@@ -103,7 +103,7 @@ export function CalendarHeatmap({ goodDays, badDays }: CalendarHeatmapProps) {
                         key={day.date}
                         title={`${day.count} kali pada ${formatted}`}
                         aria-label={`${day.count} kali pada ${formatted}`}
-                        className={`h-3.5 flex-1 rounded-sm transition-transform hover:scale-125 hover:z-10 cursor-pointer ${getCellBg(
+                        className={`h-3.5 flex-1 rounded-sm transition-transform hover:scale-125 hover:z-10 cursor-pointer transform-gpu ${getCellBg(
                           day.level
                         )}`}
                       />
