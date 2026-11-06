@@ -75,6 +75,15 @@ export default function HariIniPage() {
     }
   }, [goodHabits, logsByHabitId, logsLoading, today]);
 
+  // Auto-dismiss feedback toast after 3 seconds
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timer = setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
+
   const handleIncrement = async (habit: Habit) => {
     if (!user) return;
     try {

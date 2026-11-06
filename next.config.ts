@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
+    optimizePackageImports: ["flowbite-react", "react-icons", "date-fns"],
   },
   cacheComponents: true,
   partialPrefetching: true,

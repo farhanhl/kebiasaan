@@ -30,7 +30,7 @@ import {
   yesterdayKey,
   getHeatmapDateRange,
 } from "@/lib/date";
-import { parseISO, subWeeks, subMonths, format, startOfISOWeek, endOfISOWeek, startOfMonth, endOfMonth } from "date-fns";
+import { parseISO, subWeeks, subMonths, format, startOfISOWeek, endOfISOWeek, startOfMonth, endOfMonth, addDays } from "date-fns";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -119,7 +119,7 @@ export default function DashboardPage() {
     const totalDays = 20 * 7;
     const allDates: string[] = [];
     for (let i = 0; i < totalDays; i++) {
-      allDates.push(format(parseISO(heatmapRange.startDate) ? new Date(start.getTime() + i * 86400000) : new Date(), "yyyy-MM-dd"));
+      allDates.push(format(addDays(start, i), "yyyy-MM-dd"));
     }
 
     return {

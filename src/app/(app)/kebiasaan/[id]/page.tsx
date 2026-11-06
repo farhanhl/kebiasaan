@@ -38,11 +38,9 @@ import {
 import { todayKey, formatDateId, getPastDays, formatDateShort } from "@/lib/date";
 import { getEffectiveStreak, calcFreeDays } from "@/lib/gamification";
 import { colors } from "@/lib/theme";
-import dynamic from "next/dynamic";
+import { DynamicChart as Chart } from "@/components/ui/DynamicChart";
 import type { ApexOptions } from "apexcharts";
 import Link from "next/link";
-
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function HabitDetailPage() {
   const params = useParams();

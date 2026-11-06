@@ -1,12 +1,10 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
+import { DynamicChart as Chart } from "@/components/ui/DynamicChart";
 import type { TrendItem } from "@/types/stats";
 import { colors } from "@/lib/theme";
 import type { ApexOptions } from "apexcharts";
-
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface TrendChartProps {
   data: TrendItem[];
