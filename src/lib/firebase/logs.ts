@@ -2,7 +2,10 @@ import {
   doc,
   collection,
   getDoc,
+  getDocFromCache,
   getDocs,
+  getDocsFromCache,
+  setDoc,
   writeBatch,
   query,
   where,
@@ -11,6 +14,10 @@ import {
   onSnapshot,
   serverTimestamp,
   increment,
+  type DocumentReference,
+  type DocumentSnapshot,
+  type Query,
+  type QuerySnapshot,
 } from "firebase/firestore";
 import { db } from "./client";
 import type { Habit } from "@/types/habit";
@@ -28,6 +35,22 @@ import {
 import { isYesterday } from "../date";
 import { badgeMeta } from "../copy";
 
+async function getDocSafe(ref: DocumentReference): Promise<DocumentSnapshot> {
+  try {
+    return await getDoc(ref);
+  } catch {
+    return await getDocFromCache(ref);
+  }
+}
+
+async function getDocsSafe(q: Query): Promise<QuerySnapshot> {
+  try {
+    return await getDocs(q);
+  } catch {
+    return await getDocsFromCache(q);
+  }
+}
+
 export async function incrementLog(
   uid: string,
   habit: Habit,
@@ -41,8 +64,8 @@ export async function incrementLog(
 
   // Read current log and user snapshot
   const [logSnap, userSnap] = await Promise.all([
-    getDoc(logRef),
-    getDoc(userRef),
+    getDocSafe(logRef),
+    getDocSafe(userRef),
   ]);
 
   const currentCount = logSnap.exists() ? (logSnap.data().count || 0) : 0;
@@ -69,21 +92,20 @@ export async function incrementLog(
   const batch = writeBatch(db);
 
   // 1. Log Doc
-  batch.set(
-    logRef,
-    {
-      habitId: habit.id,
-      category: habit.category,
-      date,
-      weekKey,
-      monthKey,
-      count: increment(1),
-      xpEarned: increment(xpDelta),
-      updatedAt: serverTimestamp(),
-      createdAt: logSnap.exists() ? logSnap.data().createdAt : serverTimestamp(),
-    },
-    { merge: true }
-  );
+  const logPayload: Record<string, unknown> = {
+    habitId: habit.id,
+    category: habit.category,
+    date,
+    weekKey,
+    monthKey,
+    count: increment(1),
+    xpEarned: increment(xpDelta),
+    updatedAt: serverTimestamp(),
+  };
+  if (!logSnap.exists()) {
+    logPayload.createdAt = serverTimestamp();
+  }
+  batch.set(logRef, logPayload, { merge: true });
 
   // 2. Habit Doc
   const habitUpdates: Record<string, unknown> = {
@@ -194,8 +216,8 @@ export async function decrementLog(
   const userRef = doc(db, "users", uid);
 
   const [logSnap, userSnap] = await Promise.all([
-    getDoc(logRef),
-    getDoc(userRef),
+    getDocSafe(logRef),
+    getDocSafe(userRef),
   ]);
 
   if (!logSnap.exists()) {
@@ -250,8 +272,8 @@ export async function decrementLog(
     updatedAt: serverTimestamp(),
   };
 
-  // If count reaches 0 and good habit, recompute streak from past logs
-  if (nextCount === 0 && isGood) {
+  // If count reaches 0, recompute streak (good) or roll back lastLogDate to previous log date
+  if (nextCount === 0) {
     const logsCol = collection(db, "users", uid, "logs");
     const q = query(
       logsCol,
@@ -259,14 +281,19 @@ export async function decrementLog(
       orderBy("date", "desc"),
       limit(60)
     );
-    const pastLogsSnap = await getDocs(q);
+    const pastLogsSnap = await getDocsSafe(q);
     const remainingDates = pastLogsSnap.docs
       .filter((d) => d.id !== docId)
       .map((d) => d.data().date as string);
 
-    const recomputed = recomputeStreak(remainingDates, date);
-    habitUpdates.currentStreak = recomputed;
-    habitUpdates.lastLogDate = remainingDates.length > 0 ? remainingDates[0] : null;
+    if (isGood) {
+      const recomputed = recomputeStreak(remainingDates, date);
+      habitUpdates.currentStreak = recomputed;
+      habitUpdates.lastLogDate = remainingDates.length > 0 ? remainingDates[0] : null;
+    } else {
+      // Bad habit: rollback lastLogDate to previous log date (or null if never committed before)
+      habitUpdates.lastLogDate = remainingDates.length > 0 ? remainingDates[0] : null;
+    }
   }
 
   batch.update(habitRef, habitUpdates);
@@ -305,12 +332,14 @@ export async function setMood(
 ): Promise<void> {
   const docId = `${date}_${habit.id}`;
   const logRef = doc(db, "users", uid, "logs", docId);
-  await writeBatch(db)
-    .update(logRef, {
+  await setDoc(
+    logRef,
+    {
       mood,
       updatedAt: serverTimestamp(),
-    })
-    .commit();
+    },
+    { merge: true }
+  );
 }
 
 export function subscribeTodayLogs(

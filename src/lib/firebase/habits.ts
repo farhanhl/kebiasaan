@@ -9,6 +9,7 @@ import {
   orderBy,
   onSnapshot,
   getDocs,
+  getDocsFromCache,
   writeBatch,
   serverTimestamp,
 } from "firebase/firestore";
@@ -74,14 +75,23 @@ export async function setHabitArchived(
 export async function deleteHabit(uid: string, habitId: string): Promise<void> {
   const habitRef = doc(db, "users", uid, "habits", habitId);
 
-  // Fetch all logs associated with this habit
+  // Fetch all logs associated with this habit (online with offline cache fallback)
   const logsCol = collection(db, "users", uid, "logs");
   const q = query(logsCol, where("habitId", "==", habitId));
-  const logsSnap = await getDocs(q);
+  let logsSnap;
+  try {
+    logsSnap = await getDocs(q);
+  } catch {
+    try {
+      logsSnap = await getDocsFromCache(q);
+    } catch {
+      logsSnap = null;
+    }
+  }
 
   // Delete logs in chunks of 450 (batch limit 500)
   const batchSize = 450;
-  const docs = logsSnap.docs;
+  const docs = logsSnap?.docs || [];
 
   for (let i = 0; i < docs.length; i += batchSize) {
     const chunk = docs.slice(i, i + batchSize);

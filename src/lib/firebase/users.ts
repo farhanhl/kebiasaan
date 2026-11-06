@@ -12,7 +12,7 @@ import { db, auth } from "./client";
 import { updateProfile } from "firebase/auth";
 import type { UserProfile, BadgeId } from "@/types/user";
 import type { Habit } from "@/types/habit";
-import { evaluateBadges } from "../gamification";
+import { evaluateBadges, calcLevel } from "../gamification";
 import { badgeMeta } from "../copy";
 
 export async function ensureUserDoc(user: User): Promise<void> {
@@ -24,30 +24,35 @@ export async function ensureUserDoc(user: User): Promise<void> {
     try {
       snap = await getDocFromCache(userRef);
     } catch {
-      // Offline and not in cache yet
+      // Offline and not in cache yet -> DO NOT overwrite existing cloud document
       snap = null;
     }
   }
 
-  if (!snap || !snap.exists()) {
+  // Only initialize if we are certain the document does not exist
+  if (snap !== null && !snap.exists()) {
     try {
-      await setDoc(userRef, {
-        displayName: user.displayName || "Teman",
-        email: user.email || "",
-        timezone: "Asia/Jakarta",
-        xp: 0,
-        level: 1,
-        dailyStreak: 0,
-        longestDailyStreak: 0,
-        lastActiveDate: null,
-        totalGoodLogs: 0,
-        totalBadLogs: 0,
-        badges: {},
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
+      await setDoc(
+        userRef,
+        {
+          displayName: user.displayName || "Teman",
+          email: user.email || "",
+          timezone: "Asia/Jakarta",
+          xp: 0,
+          level: 1,
+          dailyStreak: 0,
+          longestDailyStreak: 0,
+          lastActiveDate: null,
+          totalGoodLogs: 0,
+          totalBadLogs: 0,
+          badges: {},
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
     } catch {
-      // Offline write will queue up in persistentLocalCache
+      // Offline write will queue up safely in persistentLocalCache
     }
   }
 }
@@ -118,9 +123,13 @@ export async function evaluateCleanBadges(
         badgeUpdates[`badges.${badgeId}`] = serverTimestamp();
       }
 
+      const newXp = (userData.xp || 0) + bonusXp;
+      const newLevel = Math.max(userData.level || 1, calcLevel(newXp));
+
       await updateDoc(userRef, {
         ...badgeUpdates,
-        xp: (userData.xp || 0) + bonusXp,
+        xp: newXp,
+        level: newLevel,
         updatedAt: serverTimestamp(),
       });
     }

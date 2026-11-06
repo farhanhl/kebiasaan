@@ -13,9 +13,12 @@ export function useLogsRange(startDate: string, endDate: string) {
 
   useEffect(() => {
     if (!user || !startDate || !endDate) {
+      setLogs([]);
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     const unsubscribe = subscribeLogsRange(
       user.uid,
       startDate,

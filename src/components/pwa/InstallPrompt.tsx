@@ -10,34 +10,32 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function InstallPrompt() {
+  const [mounted, setMounted] = useState(false);
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
+  const [showIosPrompt, setShowIosPrompt] = useState(false);
+  const [dismissed, setDismissed] = useState(true);
 
-  const [showIosPrompt] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window)
-    );
-  });
+  useEffect(() => {
+    setMounted(true);
 
-  const [dismissed, setDismissed] = useState(() => {
-    if (typeof window === "undefined") return true;
+    const isIos =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
+    setShowIosPrompt(isIos);
+
     const isStandalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       ("standalone" in window.navigator &&
         Boolean(
           (window.navigator as unknown as { standalone?: boolean }).standalone
         ));
-    if (isStandalone) return true;
 
     const dismissedUntil = localStorage.getItem("install_dismissed_until");
-    if (dismissedUntil && Number(dismissedUntil) > Date.now()) {
-      return true;
-    }
-    return false;
-  });
+    const isDismissed =
+      isStandalone ||
+      (Boolean(dismissedUntil) && Number(dismissedUntil) > Date.now());
+    setDismissed(isDismissed);
 
-  useEffect(() => {
     const handlePrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -65,7 +63,7 @@ export function InstallPrompt() {
     setDismissed(true);
   };
 
-  if (dismissed || (!deferredPrompt && !showIosPrompt)) {
+  if (!mounted || dismissed || (!deferredPrompt && !showIosPrompt)) {
     return null;
   }
 

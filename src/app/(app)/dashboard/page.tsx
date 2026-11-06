@@ -97,7 +97,7 @@ export default function DashboardPage() {
   // Aggregated data
   const summary = useMemo(() => {
     const streak = profile?.dailyStreak || 0;
-    return aggregateSummary(currentLogs, prevLogs, streak, Math.max(0, streak - 1));
+    return aggregateSummary(currentLogs, prevLogs, streak, streak);
   }, [currentLogs, prevLogs, profile]);
 
   const trendData = useMemo(() => {

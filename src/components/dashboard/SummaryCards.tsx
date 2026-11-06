@@ -91,7 +91,15 @@ export function SummaryCards({
             {currentStreak}
           </span>
         </div>
-        <div>{renderDiff(streakDiff, true, false)}</div>
+        <div>
+          {currentStreak > 0 ? (
+            <span className="text-[11px] font-semibold text-primary">
+              Hari berturut-turut
+            </span>
+          ) : (
+            <span className="text-[11px] text-muted">Belum ada streak</span>
+          )}
+        </div>
       </div>
     </div>
   );

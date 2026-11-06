@@ -270,7 +270,7 @@ export default function KebiasaanPage() {
                       <span className={isGood ? "text-primary font-semibold" : "text-muted font-semibold"}>
                         {isGood
                           ? `${streak} hari streak`
-                          : streak === 0
+                          : streak === 0 && habit.lastLogDate !== null
                             ? "Mulai lagi hari ini"
                             : `${streak} hari bebas`}
                       </span>

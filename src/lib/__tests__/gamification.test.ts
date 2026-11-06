@@ -159,4 +159,13 @@ describe("lib/gamification - Test Wajib", () => {
     expect(newBadges).not.toContain("first_log");
     expect(newBadges).not.toContain("streak_3");
   });
+
+  it("calcFreeDays reflects rolled-back lastLogDate accurately", () => {
+    const today = "2026-11-10";
+    const startDate = "2026-10-01";
+    // If reverted to null (no previous logs)
+    expect(calcFreeDays(startDate, null, today)).toBe(40);
+    // If rolled back to previous log date 5 days ago
+    expect(calcFreeDays(startDate, "2026-11-05", today)).toBe(5);
+  });
 });

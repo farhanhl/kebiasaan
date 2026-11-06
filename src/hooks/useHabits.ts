@@ -13,9 +13,12 @@ export function useHabits() {
 
   useEffect(() => {
     if (!user) {
+      setHabits([]);
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     const unsubscribe = subscribeHabits(
       user.uid,
       (data) => {

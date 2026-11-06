@@ -13,9 +13,12 @@ export function useUserProfile() {
 
   useEffect(() => {
     if (!user) {
+      setProfile(null);
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     const unsubscribe = subscribeUser(
       user.uid,
       (data) => {

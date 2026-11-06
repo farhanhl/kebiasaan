@@ -15,9 +15,12 @@ export function useTodayLogs() {
 
   useEffect(() => {
     if (!user) {
+      setLogs([]);
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     const unsubscribe = subscribeTodayLogs(
       user.uid,
       today,
