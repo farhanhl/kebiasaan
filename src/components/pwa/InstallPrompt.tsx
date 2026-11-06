@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { Button } from "flowbite-react";
 import { HiDevicePhoneMobile } from "react-icons/hi2";
 
@@ -72,15 +71,9 @@ export function InstallPrompt() {
     <div className="fixed bottom-24 inset-x-4 z-40 mx-auto max-w-md rounded-3xl border border-primary/40 bg-surface/95 p-4 shadow-glow backdrop-blur-md md:bottom-6 md:right-6 md:left-auto md:w-80">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-glow">
-            <Image
-              src="/icon.png"
-              alt="Logo Kebiasaan"
-              width={40}
-              height={40}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-secondary via-primary to-accent text-on-primary shadow-glow">
+            <HiDevicePhoneMobile className="h-5 w-5 text-on-primary" />
+          </span>
           <div>
             <h4 className="font-display text-sm font-bold text-fg">
               Pasang Kebiasaan

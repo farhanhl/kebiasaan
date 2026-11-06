@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   HiSun,
@@ -54,16 +53,9 @@ export function SidebarNav() {
           href="/hari-ini"
           className="flex items-center gap-3 px-3 py-2 transition-transform hover:scale-[1.02]"
         >
-          <div className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-glow">
-            <Image
-              src="/icon.png"
-              alt="Logo Kebiasaan"
-              width={40}
-              height={40}
-              className="h-full w-full object-cover"
-              priority
-            />
-          </div>
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-secondary via-primary to-accent shadow-glow text-on-primary">
+            <HiSun className="h-6 w-6" />
+          </span>
           <div>
             <span className="block font-display text-xl font-bold tracking-tight text-fg">
               Kebiasaan

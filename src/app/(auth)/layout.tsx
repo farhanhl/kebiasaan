@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { BlobBackground } from "@/components/ui/BlobBackground";
 import { Spinner } from "flowbite-react";
 import Link from "next/link";
-import Image from "next/image";
+import { HiSun } from "react-icons/hi2";
 
 export default function AuthLayout({
   children,
@@ -42,16 +42,9 @@ export default function AuthLayout({
           href="/"
           className="inline-flex items-center gap-2.5 transition-transform hover:scale-105"
         >
-          <div className="relative flex h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-glow">
-            <Image
-              src="/icon.png"
-              alt="Logo Kebiasaan"
-              width={48}
-              height={48}
-              className="h-full w-full object-cover"
-              priority
-            />
-          </div>
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-secondary via-primary to-accent text-on-primary shadow-glow">
+            <HiSun className="h-7 w-7" />
+          </span>
           <span className="font-display text-2xl font-bold tracking-tight text-fg">
             Kebiasaan
           </span>
