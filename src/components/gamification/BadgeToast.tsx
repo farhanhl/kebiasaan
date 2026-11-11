@@ -32,7 +32,10 @@ export function BadgeToast({ badgeId, onClose }: BadgeToastProps) {
         initial={{ opacity: 0, y: -40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -20, scale: 0.9 }}
-        className="fixed top-5 right-5 z-50 flex max-w-sm items-center gap-3 rounded-2xl border border-primary/40 bg-surface/95 p-4 shadow-glow backdrop-blur-md"
+        className="fixed right-5 z-50 flex max-w-sm items-center gap-3 rounded-2xl border border-primary/40 bg-surface/95 p-4 shadow-glow backdrop-blur-md"
+        style={{
+          top: "max(1.25rem, calc(env(safe-area-inset-top, 0px) + 1rem))",
+        }}
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/20 text-2xl shadow-glow">
           {meta.emoji}

@@ -25,7 +25,10 @@ export function OfflineBanner() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed top-3 inset-x-4 z-50 mx-auto max-w-md rounded-2xl border border-accent/40 bg-surface/95 p-3 text-center text-xs font-semibold text-accent shadow-glow backdrop-blur-md"
+      className="fixed inset-x-4 z-50 mx-auto max-w-md rounded-2xl border border-accent/40 bg-surface/95 p-3 text-center text-xs font-semibold text-accent shadow-glow backdrop-blur-md"
+      style={{
+        top: "max(0.75rem, calc(env(safe-area-inset-top, 0px) + 0.5rem))",
+      }}
     >
       {copy.offline}
     </div>

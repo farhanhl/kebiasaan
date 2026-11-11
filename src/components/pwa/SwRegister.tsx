@@ -61,7 +61,12 @@ export function SwRegister() {
   if (!showUpdateToast) return null;
 
   return (
-    <div className="fixed top-4 inset-x-4 z-50 mx-auto flex max-w-sm items-center justify-between gap-3 rounded-2xl border border-primary/40 bg-surface/95 p-3 shadow-glow backdrop-blur-md">
+    <div
+      className="fixed inset-x-4 z-50 mx-auto flex max-w-sm items-center justify-between gap-3 rounded-2xl border border-primary/40 bg-surface/95 p-3 shadow-glow backdrop-blur-md"
+      style={{
+        top: "max(1rem, calc(env(safe-area-inset-top, 0px) + 0.75rem))",
+      }}
+    >
       <div className="text-xs">
         <p className="font-bold text-fg">Versi Baru Tersedia!</p>
         <p className="text-muted text-[11px]">Muat ulang untuk memperbarui.</p>
