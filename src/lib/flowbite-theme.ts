@@ -75,6 +75,11 @@ export const flowbiteCustomTheme = createTheme({
     field: {
       input: {
         base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-base md:text-sm transition-colors",
+        sizes: {
+          sm: "p-2 text-base md:text-xs",
+          md: "p-2.5 text-base md:text-sm",
+          lg: "p-4 text-base",
+        },
         colors: {
           gray: "border-border/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary/60 focus:ring-primary/20 dark:border-border/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-primary/60 dark:focus:ring-primary/20",
           info: "border-primary/80 bg-surface/60 text-fg placeholder:text-muted/60 focus:border-primary focus:ring-primary/20 dark:border-primary/80 dark:bg-surface/60 dark:text-fg dark:placeholder:text-muted/60 dark:focus:border-primary dark:focus:ring-primary/20",
@@ -99,6 +104,11 @@ export const flowbiteCustomTheme = createTheme({
     field: {
       select: {
         base: "block w-full border rounded-2xl focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 text-fg text-base md:text-sm",
+        sizes: {
+          sm: "p-2 text-base md:text-xs",
+          md: "p-2.5 text-base md:text-sm",
+          lg: "p-4 text-base",
+        },
         colors: {
           gray: "border-border bg-surface-raised text-fg focus:border-primary focus:ring-primary/40 dark:border-border dark:bg-surface-raised dark:text-fg",
           info: "border-primary bg-surface-raised text-fg focus:border-primary focus:ring-primary/40 dark:border-primary dark:bg-surface-raised dark:text-fg",
