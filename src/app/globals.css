@@ -31,6 +31,7 @@ html {
   background: var(--color-bg);
   color: var(--color-fg);
   color-scheme: dark;
+  overscroll-behavior-y: contain;
 }
 
 input[type="date"] {
