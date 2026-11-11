@@ -133,12 +133,12 @@ export function PullToRefresh({ children, onRefresh }: PullToRefreshProps) {
     <>
       {/* Floating Pull-to-Refresh Pill Indicator */}
       <div
-        className={`fixed left-1/2 z-50 -translate-x-1/2 pointer-events-none transition-all ${
+        className={`fixed inset-x-0 z-50 flex justify-center pointer-events-none transition-all ${
           showIndicator ? "opacity-100" : "opacity-0 -translate-y-6"
         }`}
         style={{
           top: "calc(env(safe-area-inset-top, 0px) + 0.85rem)",
-          transform: `translate(-50%, ${pullDistance}px) scale(${
+          transform: `translateY(${pullDistance}px) scale(${
             isRefreshing ? 1 : Math.min(1, 0.75 + progress * 0.25)
           })`,
           transition: isPulling
@@ -146,7 +146,7 @@ export function PullToRefresh({ children, onRefresh }: PullToRefreshProps) {
             : "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease",
         }}
       >
-        <div className="flex items-center gap-2 rounded-full border border-border/80 bg-surface/95 px-3.5 py-1.5 shadow-2xl backdrop-blur-xl text-fg text-xs font-semibold">
+        <div className="flex items-center justify-center gap-2 rounded-full border border-border/80 bg-surface/95 px-4 py-2 shadow-2xl backdrop-blur-xl text-fg text-xs font-semibold">
           {isRefreshing ? (
             <>
               <HiArrowPath className="h-4 w-4 animate-spin text-primary" />
@@ -173,3 +173,4 @@ export function PullToRefresh({ children, onRefresh }: PullToRefreshProps) {
     </>
   );
 }
+
